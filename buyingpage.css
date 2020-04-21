@@ -1,0 +1,59 @@
+#logo{
+	width : 10%;
+	height : 10%;
+	float : left;
+}
+
+#searchlogo{
+	width : 3%;
+	height : 3%;
+}
+
+#searchbar{
+	width: 50%;
+	padding-top : 2%;
+	margin-left : 2%;
+	margin-top : 5%;
+}
+#productdisplay{
+	float: clear;
+	width: 70%;
+	height: 100%;
+	text-align: left;
+	overflow: hidden;
+	margin: 0;
+}
+
+form{
+	width: 20%;
+	margin-top: 100px;
+	display: inline;
+}
+
+.productcolumn{
+	float: clear;
+	width: 10%;
+	height: 12%;
+	margin: 2%;
+	padding: 1%;
+	border: 1px solid black;
+	float:left;
+	display: inline;
+}
+
+.productimg{
+	width : 80%;
+	height : 80%;
+}
+.productname,.price{
+	text-align: left;
+}
+.stargroup{
+	margin-bottom: 1%;
+}
+.starslogo{
+	width: 10%;
+	float: left;
+	display: inline;
+}
+
