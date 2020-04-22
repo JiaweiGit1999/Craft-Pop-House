@@ -23,9 +23,45 @@
 	float: clear;
 	width: 70%;
 	height: 100%;
-	text-align: left;
+	text-align: center;
 	overflow: hidden;
 	margin: 0;
+}
+
+#outsidebox{
+	width:87%;
+	margin-top: 4%;
+	margin-left: 4%;
+	padding: 2%;
+	background-color: white;
+	overflow:hidden;
+	position:absolute;
+}
+#productdetailwindow{
+	width:35%;
+	float: left;
+	background-color: #E4E3DF;
+	padding: 2%;
+	text-align: center;
+	
+}
+#detailsinfo{
+	text-align:left;
+	width:51%;
+	background-color: #E4E3DF;
+	float:left;
+	display: inline;
+	margin-left: 4%;
+	padding:2%;
+}
+
+#detailimg{
+	width: 70%;
+	height: 70%;
+}
+
+#detailsprice{
+	float: clear;
 }
 
 form{
@@ -55,16 +91,22 @@ form{
 }
 .stargroup{
 	margin-bottom: 1%;
+	overflow:hidden;
 }
 .starslogo{
-	width: 10%;
+	width:10%;
 	float: left;
 	display: inline;
 }
 
-
+.starslogodetails{
+	width:3%;
+	float: left;
+	display: inline;
+}
 body{
 	margin: 0;
+	background-color: #E4E3DF;
 }
 header{
 	background-color:orange;
