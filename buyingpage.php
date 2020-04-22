@@ -5,15 +5,16 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
+<script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
-<header >
+<header>
 	<img src="pic/logo.png" alt="logo" id="logo">
 	<div id="title"> | Craft Pop House</div>
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
-		<input type="image" src="pic/searchlogo.png" alt="searchlogo" id="searchlogo">
+		<button class="search_button" type="submit"><i class="fas fa-search"></i></button>
 	</form>
 </header>';
 $servername = "localhost";
@@ -29,10 +30,37 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-
 $sql = "SELECT name, price, quantity,img FROM products";
 $result = $conn->query($sql);
+$keyword1;
+
+//Search Bar Function
+if ( isset( $_REQUEST['searchbar'] ) ) {
+	$searchArray = explode(" ",$_REQUEST['searchbar']);
+	$sql = "SELECT name, price, description, quantity,img, ";
+
+	for ($i = 0; $i < count($searchArray); $i++) {
+	$sql .= "ROUND ((LENGTH(description) - LENGTH( REPLACE ( description, '$searchArray[$i]', '') ) ) / LENGTH('$searchArray[$i]'))
+	+ROUND ((LENGTH(name)-LENGTH( REPLACE ( name, '$searchArray[$i]', '') ) ) / LENGTH('$searchArray[$i]')) ";
+	if($i !=count($searchArray)-1)
+		$sql .= "+ ";
+}
+	$sql .= "AS Count FROM products WHERE description REGEXP '";
+	for ($i = 0; $i < count($searchArray); $i++) {
+		$sql .= "$searchArray[$i]";
+		if($i !=count($searchArray)-1)
+			$sql .= "|";
+	}	
+	$sql .= "' or name REGEXP '";
+	for ($i = 0; $i < count($searchArray); $i++) {
+		$sql .= "$searchArray[$i]";
+		if($i !=count($searchArray)-1)
+			$sql .= "|";
+	}	
+	$sql .="' ORDER BY count desc ";
+	echo $sql;
+	$result = $conn->query($sql);
+}
 
 
 echo'<div id="productdisplay">';
@@ -55,6 +83,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
+
 $conn->close();
 		
 echo'</div>
