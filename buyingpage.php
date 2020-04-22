@@ -9,6 +9,7 @@
 
 <header >
 	<img src="pic/logo.png" alt="logo" id="logo">
+	<div id="title"> | Craft Pop House</div>
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
