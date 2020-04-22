@@ -70,6 +70,15 @@ form{
 	margin-left:3%;
 }
 
+.search_button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+ }
+
 .productcolumn{
 	float: clear;
 	width: 10%;
