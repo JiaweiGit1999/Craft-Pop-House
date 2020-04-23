@@ -58,7 +58,6 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 			$sql .= "|";
 	}	
 	$sql .="' ORDER BY count desc ";
-	echo $sql;
 	$result = $conn->query($sql);
 }
 
