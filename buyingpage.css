@@ -29,7 +29,7 @@
 
 #outsidebox{
 	width:87%;
-	margin-top: 4%;
+	margin-top: 1%;
 	margin-left: 4%;
 	padding: 2%;
 	background-color: white;
@@ -86,12 +86,23 @@
 	border: none;
 }
 
+#saveproductdetails{
+	padding: 2%;
+	background-color: orange;
+	border: none;
+	display:block;
+}
+.save{
+	display:block;
+}
 form{
 	width: 20%;
 	display: inline;
 	margin-left:3%;
 }
-
+form #saveproductdetails{
+	float:right;
+}
 .productcolumn{
 	float: clear;
 	width: 10%;
@@ -144,6 +155,11 @@ a:link{
 
 a:hover{
 	background-color:orange;
+}
+
+h1{
+	margin-left:4%;
+	display: inline-block;
 }
 
 body{
