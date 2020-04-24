@@ -14,7 +14,7 @@
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
-		<button class="search_button" type="submit"><i class="fas fa-search"></i></button>
+		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
 </header>';
 $servername = "localhost";
