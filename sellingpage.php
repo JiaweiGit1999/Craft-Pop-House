@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
+<script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
 <header >
@@ -13,7 +14,7 @@
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
-		<input type="image" src="pic/searchlogo.png" alt="searchlogo" id="searchlogo">
+		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
 </header>
 <div>
@@ -43,8 +44,8 @@ echo'<div id="sellersidenav">
 	</div>
 	<div class="topmenu">
 		<form id="sellermenuform">
-			<button type="submit" value="Remove">Remove</button>
-			<button type="submit" value="Add Product">Add product</button>
+			<button type="submit" value="Remove"><i class="fas fa-trash-alt"></i> Remove</button>
+			<button type="submit" formaction="addproducts.php" value="Add Product"><i class="far fa-plus-square"></i> Add product</button>
 		</form>
 	</div>';
 

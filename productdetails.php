@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
+<script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
 <header >
@@ -13,7 +14,7 @@
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
-		<input type="image" src="pic/searchlogo.png" alt="searchlogo" id="searchlogo">
+		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
 </header>';
 $servername = "localhost";
