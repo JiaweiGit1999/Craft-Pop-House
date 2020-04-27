@@ -1,3 +1,15 @@
+button#search_button {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding-top: 1%;
+  padding-bottom: 0.3%;
+  padding-left: 9px;
+  padding-right: 9px;
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
 #logo{
 	width : 6%;
 	height : 6%;
@@ -29,7 +41,7 @@
 
 #outsidebox{
 	width:87%;
-	margin-top: 1%;
+	margin-top: 4%;
 	margin-left: 4%;
 	padding: 2%;
 	background-color: white;
@@ -84,29 +96,62 @@
 	padding: 1%;
 	background-color: orange;
 	border: none;
+	font-size: 16px;
 }
 
-#saveproductdetails{
-	padding: 2%;
+#loginform{
+	display: block;
+	margin-left:auto;
+	margin-right: auto;
+	margin-top:4%;
+	background-color:white;
+	
+}
+#loginform label,#loginform .logininput{
+	margin-left:5%;
+	margin-top:5%;
+	margin-bottom:5%;
+}
+#fileToUpload{
+	margin-left:5%;
+}
+#registerphoto{
+	margin
+}
+#loginform a{
+	font-size: 14px;
+	margin-left:5%;
+}
+#loginform .logininput{
+	width:90%;
+}
+#login{
+	width: 90%;
+    margin: 5%;
+	background-color: blue;
+	padding:3%;
+	border: 0;
+}
+#register{
+	width: 90%;
+    margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 5%;
 	background-color: orange;
-	border: none;
-	display:block;
+	padding:3%;
+	border: 0;
 }
-.save{
-	display:block;
-}
+
 form{
 	width: 20%;
 	display: inline;
 	margin-left:3%;
 }
-form #saveproductdetails{
-	float:right;
-}
+
 .productcolumn{
 	float: clear;
-	width: 10%;
-	height: 12%;
+	width: 100px;
+	height: 200px;
 	margin: 2%;
 	padding: 1%;
 	border: 1px solid black;
@@ -114,16 +159,21 @@ form #saveproductdetails{
 	display: inline;
 	overflow: hidden;
 }
+.loginbox{
+	display: inline;
+	float: right;
+}
+.loginbutton{
+	background-color: blue;
+	padding: 20%;
+	color: white;
+}
 .topmenu{
 	width:70%;
 	background-color: #CECDC9;
 	display:inline-block;
 	padding: 2%;
 	margin-top:2%;
-}
-.productimg{
-	width : 80%;
-	height : 80%;
 }
 .productname,.price{
 	text-align: left;
@@ -157,11 +207,6 @@ a:hover{
 	background-color:orange;
 }
 
-h1{
-	margin-left:4%;
-	display: inline-block;
-}
-
 body{
 	margin: 0;
 	background-color: #E4E3DF;
@@ -169,4 +214,13 @@ body{
 header{
 	background-color:orange;
 	padding: 2%;
+}
+
+h1{
+	background-color:#CECDC9;
+	padding-left:10%;
+	text-align:left;
+	padding-top:2%;
+	padding-bottom:2%;
+	margin:0;
 }

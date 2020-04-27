@@ -19,7 +19,8 @@
 	<div class="loginbox">
 		<a href="login.php" class="loginbutton">Login</a>
 	</div>
-</header>';
+</header>
+<h1>Login Page</h1>';
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -64,30 +65,15 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	$result = $conn->query($sql);
 }
 
-
-echo'<div id="productdisplay">';
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo '<div class="productcolumn"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
-		<p class="productname">' . $row["name"] . '</p>
-		<p class="price"> RM' . $row["price"] . '</p>
-		<div class="stargroup">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-		</div>
-	</div>';
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
 		
-echo'</div>
+echo'<form id="loginform">
+	<label for="username">Username: </label><br>
+	<input type="text" name="username" class="logininput"><br><br>
+	<label for="username">Password: </label><br>
+	<input type="text" name="password" class="logininput"><br>
+	<a href=" ">forgot password?</a>
+	<input type="submit" value="Login" id="login">
+	<input type="submit" value="Register" id="register">
+</form>
 </body>
 </html>';  ?>

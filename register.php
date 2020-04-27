@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
+<script src="loginpage.js"></script>
 <body>
 
 <header>
@@ -19,12 +20,13 @@
 	<div class="loginbox">
 		<a href="login.php" class="loginbutton">Login</a>
 	</div>
-</header>';
+</header>
+<h1>Register Page</h1>';
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dp2";
-
+$passnoti = " ";
 // Create connection
 $conn = new mysqli($servername, $username, $password,$dbname);
 
@@ -64,30 +66,27 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	$result = $conn->query($sql);
 }
 
-
-echo'<div id="productdisplay">';
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo '<div class="productcolumn"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
-		<p class="productname">' . $row["name"] . '</p>
-		<p class="price"> RM' . $row["price"] . '</p>
-		<div class="stargroup">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-		</div>
-	</div>';
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
 		
-echo'</div>
+echo'<form id="loginform" onsubmit="return validateForm()" method="post" action=" " name="myForm">
+	<img id="image" src="pic/no-image.jpg" height="100" width="100" id="registerphoto"/>
+	<input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" /*required="required"*//><br><br>
+	<label for="username">Username: </label><br>
+	<input type="text" name="username" class="logininput" ><br><br>
+	<label for="password">Password: </label><br>
+	<input type="text" name="password" class="logininput" ><br>
+	<label for="re-enterpassword">Re-enter Password: </label><br>
+	<input type="text" name="re-enterpassword" class="logininput" >
+	<p id="errortxt"></p><br>
+	<label for="email">Email: </label><br>
+	<input type="text" name="email" class="logininput" ><br><br>
+	<label for="address">Address: </label><br>
+	<input type="text" name="address" class="logininput" ><br><br>
+	<input type="submit" value="Register" id="register" name="register">
+</form>
 </body>
-</html>';  ?>
+</html>';  
+
+if(isset($_REQUEST["register"])){
+	
+}
+?>

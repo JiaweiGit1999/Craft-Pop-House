@@ -32,7 +32,7 @@ CREATE TABLE Products (
 productid INT(6) PRIMARY KEY,
 name VARCHAR(30),
 sellerid INT(6),
-price Decimal(5,2),
+price float,
 description VARCHAR(300),
 quantity INT(6),
 img VARCHAR(500),
