@@ -16,6 +16,9 @@
 		<input type="text" id="searchbar" name="searchbar">
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
+	<div class="loginbox">
+		<a href="login.php" class="loginbutton">Login</a>
+	</div>
 </header>
 <div>
 
@@ -54,7 +57,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo '<div class="productcolumn"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg">
+		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
 		<div class="stargroup">
