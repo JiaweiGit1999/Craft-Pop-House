@@ -21,19 +21,23 @@
 	</div>
 </header>
 <h1>Login Page</h1>';
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dp2";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password,$dbname);
+Function connect(){
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "dp2";
+	
+	// Create connection
+	$conn = new mysqli($servername, $username, $password,$dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+	// Check connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	return $conn;
 }
-
+$conn = connect();
 $sql = "SELECT name, price, quantity,img FROM products";
 $result = $conn->query($sql);
 $keyword1;
@@ -66,14 +70,40 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 }
 
 		
-echo'<form id="loginform">
+echo'<form id="loginform" method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
 	<label for="username">Username: </label><br>
 	<input type="text" name="username" class="logininput"><br><br>
-	<label for="username">Password: </label><br>
+	<label for="password">Password: </label><br>
 	<input type="text" name="password" class="logininput"><br>
 	<a href=" ">forgot password?</a>
 	<input type="submit" value="Login" id="login">
 	<input type="submit" value="Register" id="register">
 </form>
 </body>
-</html>';  ?>
+</html>';  
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	test_input($_POST["username"],$_POST["password"]);
+}
+
+function test_input($username,$password) {
+	$match = false;
+	$username = trim($username);
+	$password = trim($password);
+	$conn = connect();
+	$sql = "SELECT username, password FROM users";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			if($row["username"]==$username || $row["password"]==$password){
+				$match = true;
+			}
+		}
+	} else {
+		echo "0 results";
+	}
+	if($match == true){
+		echo "login successful";
+	}
+}?>
