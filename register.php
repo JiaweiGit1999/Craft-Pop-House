@@ -22,19 +22,24 @@
 	</div>
 </header>
 <h1>Register Page</h1>';
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dp2";
 $passnoti = " ";
-// Create connection
-$conn = new mysqli($servername, $username, $password,$dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+Function connect(){
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "dp2";
+	
+	// Create connection
+	$conn = new mysqli($servername, $username, $password,$dbname);
+
+	// Check connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	return $conn;
 }
-
+$conn = connect();
 $sql = "SELECT name, price, quantity,img FROM products";
 $result = $conn->query($sql);
 $keyword1;
@@ -67,7 +72,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 }
 
 		
-echo'<form id="loginform" onsubmit="return validateForm()" method="post" action=" " name="myForm">
+echo'<form id="loginform" onsubmit="return validateForm()" method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" name="myForm">
 	<img id="image" src="pic/no-image.jpg" height="100" width="100" id="registerphoto"/>
 	<input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" /*required="required"*//><br><br>
 	<label for="username">Username: </label><br>
@@ -86,7 +91,34 @@ echo'<form id="loginform" onsubmit="return validateForm()" method="post" action=
 </body>
 </html>';  
 
-if(isset($_REQUEST["register"])){
-	
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	test_input($_POST["username"]);
+	test_input($_POST["email"]);
+}
+
+function test_input($data) {
+	$match = false;
+	$data = trim($data);
+	$conn = connect();
+	$sql = "SELECT username, email FROM users";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			if($row["username"]==$data || $row["email"]==$data){
+				$match = true;
+			}
+		}
+	} else {
+		echo "0 results";
+	}
+	if($match == false){
+		redirect();
+	}
+}
+
+function redirect(){
+	 header("Location:buyingpage.php");
+	 exit();
 }
 ?>
