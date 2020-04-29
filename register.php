@@ -1,4 +1,6 @@
-<?php echo '
+<?php
+
+echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -7,6 +9,7 @@
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <script src="loginpage.js"></script>
+<script src="preview.js"></script>
 <body>
 
 <header>
@@ -71,9 +74,8 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	$result = $conn->query($sql);
 }
 
-		
 echo'<form id="loginform" onsubmit="return validateForm()" method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" name="myForm">
-	<img id="image" src="pic/no-image.jpg" height="100" width="100" id="registerphoto"/>
+	<img id="image" src="pic/no-image.jpg" height="100" width="100" name="photoimage"/>
 	<input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" /*required="required"*//><br><br>
 	<label for="username">Username: </label><br>
 	<input type="text" name="username" class="logininput" ><br><br>
@@ -113,12 +115,19 @@ function test_input($data) {
 		echo "0 results";
 	}
 	if($match == false){
+		
+		$address = str_replace(","," ",$_POST["address"]);
+		$sql = "insert INTO users (username,password,email,address,usericon)
+				VALUES('".$_POST["username"]."','".$_POST["password"]."','".$_POST["email"]."','".$_POST["address"]."','pic/".$_POST["fileToUpload"]."')";
+		$conn->query($sql);
 		redirect();
+	}else{
+		echo "failed registration";
 	}
 }
 
 function redirect(){
-	 header("Location:buyingpage.php");
+	 header("refresh: 3; url=login.php");
 	 exit();
 }
 ?>
