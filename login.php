@@ -75,9 +75,9 @@ echo'<form id="loginform" method="post" action="'.htmlspecialchars($_SERVER["PHP
 	<input type="text" name="username" class="logininput"><br><br>
 	<label for="password">Password: </label><br>
 	<input type="text" name="password" class="logininput"><br>
-	<a href=" ">forgot password?</a>
+	<a href=" " class="forgot">forgot password?</a>
 	<input type="submit" value="Login" id="login">
-	<input type="submit" value="Register" id="register">
+	<a href="register.php" id="register">Register</a>
 </form>
 </body>
 </html>';  

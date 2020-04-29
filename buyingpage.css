@@ -105,7 +105,6 @@ button#search_button {
 	margin-right: auto;
 	margin-top:4%;
 	background-color:white;
-	
 }
 #loginform label,#loginform .logininput{
 	margin-left:5%;
@@ -115,10 +114,13 @@ button#search_button {
 #fileToUpload{
 	margin-left:5%;
 }
-#registerphoto{
-	margin
+#loginform #image{
+	margin-left:20%;
+	margin-right:auto;
+	margin-top:5%;
+	margin-bottom:5%;
 }
-#loginform a{
+#loginform .forgot{
 	font-size: 14px;
 	margin-left:5%;
 }
@@ -133,12 +135,15 @@ button#search_button {
 	border: 0;
 }
 #register{
-	width: 90%;
+	width:90%;
+	text-align:center;
     margin-left: 5%;
 	margin-right: 5%;
 	margin-bottom: 5%;
 	background-color: orange;
-	padding:3%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	display:inline-block;
 	border: 0;
 }
 
