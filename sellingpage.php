@@ -33,7 +33,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT name, price, quantity,img FROM products";
+$sql = "SELECT * FROM products where product_status!='deleted'";
 $result = $conn->query($sql);
 
 
@@ -64,11 +64,25 @@ if ($result->num_rows > 0) {
 			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 		</div>
+		<form action="sellingpage.php" method="post">
+          <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
+          <input type="submit" name="Delete" value="Delete" />
+        </form>
 	</div>';
     }
 } else {
     echo "0 results";
 }
+
+if(isset($_REQUEST["Delete"]))
+{
+	$productID = $_REQUEST["ProductID"];
+	$sql = "UPDATE Products product_status SET product_status='deleted' where productid=".$productID."";
+	$result = $conn->query($sql);
+	if($result)
+		header("Refresh:0");
+}
+
 $conn->close();
 		
 echo'</div>
