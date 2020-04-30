@@ -1,4 +1,12 @@
-<?php echo '
+<?php 
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: buyingpage.php");
+    exit;
+}
+echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -91,13 +99,15 @@ function test_input($username,$password) {
 	$username = trim($username);
 	$password = trim($password);
 	$conn = connect();
-	$sql = "SELECT username, password FROM users";
+	$sql = "SELECT id,username, password FROM users";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			if($row["username"]==$username || $row["password"]==$password){
+			if($row["username"]==$username && $row["password"]==$password){
 				$match = true;
+				$id = $row["id"];
+				$matchusername = $row["username"];
 			}
 		}
 	} else {
@@ -105,5 +115,10 @@ function test_input($username,$password) {
 	}
 	if($match == true){
 		echo "login successful";
+		$_SESSION["loggedin"] = true;
+        $_SESSION["id"] = $id;
+        $_SESSION["username"] = $matchusername;
+		
+		header("location: login.php");
 	}
 }?>

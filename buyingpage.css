@@ -74,7 +74,10 @@ button#search_button {
 #detailsprice{
 	float: clear;
 }
-
+#filterhead{
+	margin-left:7%;
+	font-size:20px;
+}
 #sellersidenav{
 	background-color:white;
 	height: 40%;
@@ -86,13 +89,42 @@ button#search_button {
 	width: 12%;
 }
 
+#buyersidenav{
+	background-color:white;
+	height: 40%;
+	margin:2%;
+	float:left;
+	display:inline;
+	overflow:hidden;
+	text-align:left;
+	width: 12%;
+	padding:1%;
+}
+#buyersidenav input,#buyersidenav label,#buyersidenav div{
+	margin-left:7%;
+	margin-top:3%;
+}
+
 #sellermenuform{
 	width:100%;
 	float: right;
 	text-align: right;
 }
 
+#buyermenuform{
+	width:100%;
+	float: right;
+	text-align: left;
+}
+
 #sellermenuform button{
+	padding: 1%;
+	background-color: orange;
+	border: none;
+	font-size: 16px;
+}
+
+#buyermenuform button{
 	padding: 1%;
 	background-color: orange;
 	border: none;
@@ -111,9 +143,10 @@ button#search_button {
 	margin-top:5%;
 	margin-bottom:5%;
 }
-#fileToUpload{
+#loginform #fileToUpload{
 	margin-left:5%;
 }
+
 #loginform #image{
 	margin-left:20%;
 	margin-right:auto;
@@ -146,13 +179,27 @@ button#search_button {
 	display:inline-block;
 	border: 0;
 }
-
+#saveproductdetails{
+	display:block;
+	border: 0;
+	background-color:orange;
+	padding:2%;
+	margin-left:auto;
+}
+#pricelabel{
+	display:block;
+}
+#range{
+	display:inline;
+}
 form{
 	width: 20%;
 	display: inline;
 	margin-left:3%;
 }
-
+#detailsinfo div{
+	margin-top:3%;
+}
 .productcolumn{
 	float: clear;
 	width: 100px;
@@ -172,6 +219,7 @@ form{
 	background-color: blue;
 	padding: 20%;
 	color: white;
+	display:contents;
 }
 .topmenu{
 	width:70%;
@@ -204,13 +252,14 @@ form{
 	display:block;
 }
 
+.pricerange{
+	width: 50px;
+}
+
 a:link{
 	text-decoration:none;
 }
 
-a:hover{
-	background-color:orange;
-}
 
 body{
 	margin: 0;

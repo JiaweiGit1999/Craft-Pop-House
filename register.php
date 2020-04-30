@@ -78,16 +78,16 @@ echo'<form id="loginform" onsubmit="return validateForm()" method="post" action=
 	<img id="image" src="pic/no-image.jpg" height="100" width="100" name="photoimage"/>
 	<input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" /*required="required"*//><br><br>
 	<label for="username">Username: </label><br>
-	<input type="text" name="username" class="logininput" ><br><br>
+	<input type="text" name="username" class="logininput" required><br><br>
 	<label for="password">Password: </label><br>
-	<input type="text" name="password" class="logininput" ><br>
+	<input type="text" name="password" class="logininput" required><br>
 	<label for="re-enterpassword">Re-enter Password: </label><br>
-	<input type="text" name="re-enterpassword" class="logininput" >
+	<input type="text" name="re-enterpassword" class="logininput" required>
 	<p id="errortxt"></p><br>
 	<label for="email">Email: </label><br>
-	<input type="text" name="email" class="logininput" ><br><br>
+	<input type="text" name="email" class="logininput" required><br><br>
 	<label for="address">Address: </label><br>
-	<input type="text" name="address" class="logininput" ><br><br>
+	<input type="text" name="address" class="logininput" required><br><br>
 	<input type="submit" value="Register" id="register" name="register">
 </form>
 </body>
