@@ -7,6 +7,7 @@ echo '
 
 <link rel="stylesheet" type="text/css" href="buyingpage.css">
 <script src="preview.js"></script>
+<script src="confirmation_box.js"></script>
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 <header>
@@ -17,26 +18,34 @@ echo '
 		<input type="text" id="searchbar" name="searchbar">
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
+</header>
 	<div class="loginbox">
 		<a href="login.php" class="loginbutton">Login</a>
 	</div>
 </header>';
-ob_start();
 echo '
 	<div id="outsidebox">
-	<form action="addproducts.php" method="post" enctype="multipart/form-data">
+	<form action="addproducts.php" method="post" enctype="multipart/form-data" onsubmit="return validate()">
 		<h1>Add Products</h1>
 		<p><img id="image" src="pic/no-image.jpg" height="100" width="100"/></p>
 		<p><input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" required="required"/></p>
 		<p>Name: <input type="text" name="name" limit="20" required="required"/></p>
 		<p>Price: RM <input type="number" name="price" min="0.01" step="0.01" value="0.00" placeholder="0.00" pattern="[0-9]+[.][0-9]{2}" required="required"/></p>
+		<p>
+			<label for="category">Choose a category:</label>
+			<select id="category" name="category">
+			  <option value="Chair">Chair</option>
+			  <option value="Table">Table</option>
+			  <option value="Decoration">Decoration</option>
+			  <option value="Accessories" selected="selected">Accessories</option>
+			</select>
+		</p>
 		<p>Quantity: <input type="number" name="quantity" min="1"/></p>
 		<p>Description: <textarea name="description" required></textarea></p>
-		<p><input type="submit" name="Submit"/>&nbsp;<input type="reset" name="Reset"/>
+		<p><input type="submit" id="submit" name="Submit" value"Add"/>&nbsp;<input type="reset" name="Reset"/>
 	</form>
 	</div>
-	';
-echo '</body>
+</body>
 </html>';
 
 //upload image to database folder
@@ -56,6 +65,7 @@ if(isset($_REQUEST["Submit"])){
 	$name = $_REQUEST["name"];
 	$price = $_REQUEST["price"];
 	$description = $_REQUEST["description"];
+	$category = $_REQUEST["category"];
 	$quantity = $_REQUEST["quantity"];
 	$target_dir = "pic/";
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -71,24 +81,15 @@ if(isset($_REQUEST["Submit"])){
 	else {
 		echo "Sorry, there was an error uploading your file.";
 	}
-	$sql = "INSERT INTO Products (name,sellerid,price,description,quantity,img) VALUES ('$name',1,$price,'$description',$quantity,'$target_file')";
+	$sql = "INSERT INTO Products (name,sellerid,price,description,category,quantity,img) VALUES ('$name',1,$price,'$description','$category',$quantity,'$target_file')";
 	$result = $conn->query($sql);
-	echo $result;
-	echo $uploadOk;
 	if($result && $uploadOk == 1)
 	{
-		ob_end_clean();
-		echo '<div style="color:green;border-style:dashed;">
-			<h1>Add Product Successful!</h1>
-			<p>The webpage will redirect back to the product management page in 5 seconds.</p>
-		</div>';
-		sleep(5);
-		header("Location: sellingpage.php", true, 301);
-		exit();
+		header("Location:addproducts_success.php");
 	}
 	else
 	{
-		echo "Error";
+		echo $conn->error;
 	}
 
 	$conn->close();
