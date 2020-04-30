@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
+<script src="confirmation_box.js"></script>
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
@@ -54,7 +55,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo '<div class="productcolumn"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg">
+		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
 		<div class="stargroup">
@@ -64,23 +65,14 @@ if ($result->num_rows > 0) {
 			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 		</div>
-		<form action="sellingpage.php" method="post">
+		<form action="delete_product.php" method="post" onsubmit="return validate()">
           <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
-          <input type="submit" name="Delete" value="Delete" />
+          <input type="submit" id="submit" name="Delete" value="Delete"/>
         </form>
 	</div>';
     }
 } else {
     echo "0 results";
-}
-
-if(isset($_REQUEST["Delete"]))
-{
-	$productID = $_REQUEST["ProductID"];
-	$sql = "UPDATE Products product_status SET product_status='deleted' where productid=".$productID."";
-	$result = $conn->query($sql);
-	if($result)
-		header("Refresh:0");
 }
 
 $conn->close();
