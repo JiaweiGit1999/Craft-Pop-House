@@ -19,6 +19,18 @@ echo '
 		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
+	<div class="loginbox">';
+	session_start();
+ 
+	// Check if the user is already logged in, if yes then redirect him to welcome page
+	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
+		
+	}else{
+		echo'<a href="login.php" class="loginbutton">Login</a>';
+	}
+		
+	echo'</div>
 </header>';
 $servername = "localhost";
 $username = "root";
@@ -62,7 +74,76 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	$sql .="' ORDER BY count desc ";
 	$result = $conn->query($sql);
 }
+echo'<form id="buyersidenav">
+		<p id="filterhead">Filters</p>
+		<label for="filter">Rating:</label>
+		<a href="?rate1"><div class="stargroup">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+		</div></a>
+		<a href="?rate2"><div class="stargroup">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+		</div></a>
+		<a href="?rate3"><div class="stargroup">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+		</div></a>
+		<a href="?rate4"><div class="stargroup">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/stars.png" alt="starslogo" class="starslogo">
+		</div></a>
+		<a href="?rate5"><div class="stargroup">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+			<img src="pic/starscolor(1).png" alt="starslogo" class="starslogo">
+		</div></a>
+		<label for="price1" id="pricelabel">Price Range:</label>
+		<input type="number" name="price1" class="pricerange"></input>
+		<div id="range"> - </div>
+		<input type="number" name="price2" class="pricerange"></input>
+		<input type="submit" value="submit" name="filtersubmit"></input>
+	</form>
+	<div class="topmenu">
+		<form id="buyermenuform">
+			<label for="relevance">Sort By:</label>
+			<button type="submit" value="relevance" name="relevance" >Relevance</button>
+			<button type="submit" value="rating" name="rating">Rating</button>
+			<button type="submit" value="price" name="price">Price</button>
+		</form>
+	</div>';
+///filter codes
+if(isset($_GET['rate1'])){
+	echo '<p>rate1 pressed</p>';
+}
 
+if(isset($_GET['rate2'])){
+	echo '<p>rate2 pressed</p>';
+}
+
+if(isset($_GET['rate3'])){
+	echo '<p>rate3 pressed</p>';
+}
+if(isset($_GET['rate4'])){
+	echo '<p>rate4 pressed</p>';
+}
+if(isset($_GET['rate5'])){
+	echo '<p>rate5 pressed</p>';
+}
 
 echo'<div id="filter_container" class="product_filters" name="filter">
 			<button class="filter_btn active" onclick="filterSelection(\'All\')"> Show All</button>

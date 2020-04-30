@@ -17,6 +17,9 @@
 		<input type="text" id="searchbar" name="searchbar">
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
+	<div class="loginbox">
+		<a href="login.php" class="loginbutton">Login</a>
+	</div>
 </header>
 <div>
 

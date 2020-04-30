@@ -19,6 +19,11 @@ echo '
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
 </header>
+	<div class="loginbox">
+		<a href="login.php" class="loginbutton">Login</a>
+	</div>
+</header>';
+echo '
 	<div id="outsidebox">
 	<form action="addproducts.php" method="post" enctype="multipart/form-data" onsubmit="return validate()">
 		<h1>Add Products</h1>

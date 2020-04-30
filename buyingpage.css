@@ -74,7 +74,10 @@ button#search_button {
 #detailsprice{
 	float: clear;
 }
-
+#filterhead{
+	margin-left:7%;
+	font-size:20px;
+}
 #sellersidenav{
 	background-color:white;
 	height: 40%;
@@ -86,10 +89,32 @@ button#search_button {
 	width: 12%;
 }
 
+#buyersidenav{
+	background-color:white;
+	height: 40%;
+	margin:2%;
+	float:left;
+	display:inline;
+	overflow:hidden;
+	text-align:left;
+	width: 12%;
+	padding:1%;
+}
+#buyersidenav input,#buyersidenav label,#buyersidenav div{
+	margin-left:7%;
+	margin-top:3%;
+}
+
 #sellermenuform{
 	width:100%;
 	float: right;
 	text-align: right;
+}
+
+#buyermenuform{
+	width:100%;
+	float: right;
+	text-align: left;
 }
 
 #sellermenuform button{
@@ -99,16 +124,86 @@ button#search_button {
 	font-size: 16px;
 }
 
+#buyermenuform button{
+	padding: 1%;
+	background-color: orange;
+	border: none;
+	font-size: 16px;
+}
+
+#loginform{
+	display: block;
+	margin-left:auto;
+	margin-right: auto;
+	margin-top:4%;
+	background-color:white;
+}
+#loginform label,#loginform .logininput{
+	margin-left:5%;
+	margin-top:5%;
+	margin-bottom:5%;
+}
+#loginform #fileToUpload{
+	margin-left:5%;
+}
+
+#loginform #image{
+	margin-left:20%;
+	margin-right:auto;
+	margin-top:5%;
+	margin-bottom:5%;
+}
+#loginform .forgot{
+	font-size: 14px;
+	margin-left:5%;
+}
+#loginform .logininput{
+	width:90%;
+}
+#login{
+	width: 90%;
+    margin: 5%;
+	background-color: blue;
+	padding:3%;
+	border: 0;
+}
+#register{
+	width:90%;
+	text-align:center;
+    margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 5%;
+	background-color: orange;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	display:inline-block;
+	border: 0;
+}
+#saveproductdetails{
+	display:block;
+	border: 0;
+	background-color:orange;
+	padding:2%;
+	margin-left:auto;
+}
+#pricelabel{
+	display:block;
+}
+#range{
+	display:inline;
+}
 form{
 	width: 20%;
 	display: inline;
 	margin-left:3%;
 }
-
+#detailsinfo div{
+	margin-top:3%;
+}
 .productcolumn{
 	float: clear;
-	width: 10%;
-	height: 12%;
+	width: 100px;
+	height: 200px;
 	margin: 2%;
 	padding: 1%;
 	border: 1px solid black;
@@ -116,7 +211,6 @@ form{
 	display: inline;
 	overflow: hidden;
 }
-
 .product_column{
 	float: clear;
 	width: 10%;
@@ -129,16 +223,24 @@ form{
 	overflow: hidden;
 }
 
+.loginbox{
+	display: inline;
+	float: right;
+}
+
+.loginbutton{
+	background-color: blue;
+	padding: 20%;
+	color: white;
+	display:contents;
+}
+
 .topmenu{
 	width:70%;
 	background-color: #CECDC9;
 	display:inline-block;
 	padding: 2%;
 	margin-top:2%;
-}
-.productimg{
-	width : 80%;
-	height : 80%;
 }
 .productname,.price{
 	text-align: left;
@@ -164,13 +266,14 @@ form{
 	display:block;
 }
 
+.pricerange{
+	width: 50px;
+}
+
 a:link{
 	text-decoration:none;
 }
 
-a:hover{
-	background-color:orange;
-}
 
 body{
 	margin: 0;
@@ -207,3 +310,12 @@ button.filter_btn.active {
   color: white;
 }
 /* CSS for the Filters */
+
+h1{
+	background-color:#CECDC9;
+	padding-left:10%;
+	text-align:left;
+	padding-top:2%;
+	padding-bottom:2%;
+	margin:0;
+}
