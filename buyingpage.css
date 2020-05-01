@@ -38,6 +38,13 @@ button#search_button {
 	overflow: hidden;
 	margin: 0;
 }
+#homeproductdisplay{
+	width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    background-color: white;
+}
 
 #outsidebox{
 	width:87%;
@@ -200,10 +207,26 @@ form{
 #detailsinfo div{
 	margin-top:3%;
 }
+#hometopmenu{
+	width: 98%;
+    background-color: #CECDC9;
+    display: inline-block;
+    padding: 1%;
+}
+#hometopbox{
+	height: 400px;
+    margin-left: 3%;
+    overflow: hidden;
+    width: 90%;
+}
+}
+#homepic1{
+	float: left;
+}
 .productcolumn{
 	float: clear;
 	width: 100px;
-	height: 200px;
+	height: 220px;
 	margin: 2%;
 	padding: 1%;
 	border: 1px solid black;
@@ -211,16 +234,35 @@ form{
 	display: inline;
 	overflow: hidden;
 }
+.remove{
+	background-color: red;
+    border: 0;
+    margin-top: 5px;
+}
+.product_column{
+	float: clear;
+	width: 10%;
+	height: 12%;
+	margin: 2%;
+	padding: 1%;
+	border: 1px solid black;
+	float:left;
+	display: none;
+	overflow: hidden;
+}
+
 .loginbox{
 	display: inline;
 	float: right;
 }
+
 .loginbutton{
 	background-color: blue;
 	padding: 20%;
 	color: white;
 	display:contents;
 }
+
 .topmenu{
 	width:70%;
 	background-color: #CECDC9;
@@ -269,6 +311,57 @@ header{
 	background-color:orange;
 	padding: 2%;
 }
+
+/* CSS for the Filters */
+.product_filters {
+	margin-top: 20px;
+	margin-left: 15px;
+}
+
+.show{
+	display: block;
+}
+.homeproductcolumn{
+	float: clear;
+    width: 100px;
+    height: 200px;
+    margin: 1% 0 1% 1%;
+    padding: 1%;
+    border: 1px solid #CECDC9;
+    float: left;
+    display: inline;
+    overflow: hidden;
+    background-color: #E4E3DF;
+}
+.homeboxes{
+	display: inline-table;
+    border: 3px solid #CECDC9;
+    width: 91%;
+    margin-left: 3%;
+    margin-top: 2%;
+    margin-bottom: 10%;
+    margin-top: 6%;
+}
+.homepic{
+	margin-left:2%;
+}
+button.filter_btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+button.filter_btn:hover {
+  background-color: #ddd;
+}
+
+button.filter_btn.active {
+  background-color: #666;
+  color: white;
+}
+/* CSS for the Filters */
 
 h1{
 	background-color:#CECDC9;
