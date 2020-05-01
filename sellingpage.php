@@ -70,7 +70,7 @@ if ($result->num_rows > 0) {
 		</div>
 		<form action="delete_product.php" method="post" onsubmit="return validate()">
           <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
-          <input type="submit" id="submit" name="Delete" value="Delete"/>
+          <input type="submit" id="submit" name="Delete" value="Delete" class="remove"/>
         </form>
 	</div>';
     }
