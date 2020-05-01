@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
+<script src="confirmation_box.js"></script>
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
@@ -36,7 +37,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT name, price, quantity,img FROM products";
+$sql = "SELECT * FROM products where product_status!='deleted'";
 $result = $conn->query($sql);
 
 
@@ -57,7 +58,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo '<div class="productcolumn"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
+		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
 		<div class="stargroup">
@@ -67,11 +68,16 @@ if ($result->num_rows > 0) {
 			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 		</div>
+		<form action="delete_product.php" method="post" onsubmit="return validate()">
+          <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
+          <input type="submit" id="submit" name="Delete" value="Delete" class="remove"/>
+        </form>
 	</div>';
     }
 } else {
     echo "0 results";
 }
+
 $conn->close();
 		
 echo'</div>
