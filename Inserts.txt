@@ -1,4 +1,5 @@
 Drop Table if EXISTS history;
+Drop Table if EXISTS products_orders;
 Drop Table if EXISTS orders;
 Drop Table if EXISTS products;
 Drop Table if EXISTS buyer;
@@ -16,7 +17,7 @@ usericon VARCHAR(500)
 
 CREATE TABLE Seller (
 id INT(6) AUTO_INCREMENT PRIMARY KEY,
-sales Float,
+sales decimal(12,2),
 name VARCHAR(30),
 backgroundurl VARCHAR(500),
 FOREIGN KEY (id) REFERENCES Users(id)
@@ -29,14 +30,16 @@ FOREIGN KEY (id) REFERENCES Users(id)
 );
 
 CREATE TABLE Products (
-productid INT(6) PRIMARY KEY,
+productid INT(6) AUTO_INCREMENT PRIMARY KEY,
+product_status VARCHAR(30) DEFAULT "active",
 name VARCHAR(30),
 sellerid INT(6),
-price float,
+price decimal(7,2),
 description VARCHAR(300),
+category VARCHAR(15),
 quantity INT(6),
 img VARCHAR(500),
-rating float,
+rating decimal(2,1),
 FOREIGN KEY (sellerid) REFERENCES Seller(id)
 );
 
@@ -45,12 +48,19 @@ userid INT(6),
 productid INT(6),
 status VARCHAR(30),
 quantity int,
-orderid INT(6),
+orderid INT(6) auto_increment,
 amount INT(6),
 date DateTime,
+PRIMARY KEY(orderid),
+FOREIGN KEY (userid) REFERENCES Buyer(id)   
+);
+
+CREATE TABLE products_orders (
+productid INT(6),
+orderid INT(6),
 PRIMARY KEY(productid,orderid),
 FOREIGN KEY (productid) REFERENCES Products(productid),
-FOREIGN KEY (userid) REFERENCES Buyer(id)   
+FOREIGN KEY (orderid) REFERENCES Orders(orderid)
 );
 
 CREATE TABLE History (
@@ -60,7 +70,7 @@ productid INT(6),
 orderid INT(6),
 FOREIGN KEY (sellerid) REFERENCES Seller(id),
 FOREIGN KEY (buyerid) REFERENCES Buyer(id),
-FOREIGN KEY (productid,orderid) REFERENCES Orders(productid,orderid)
+FOREIGN KEY (productid,orderid) REFERENCES products_orders(productid,orderid)
 );
 
 insert INTO users (id,username,password,email,address,usericon)
@@ -72,23 +82,41 @@ VALUES(1,48.90,'admin','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png');
 insert INTO buyer (id,name)
 VALUES(1,'admin');
 
-INSERT INTO products(productid,name,sellerid,price,description,quantity,img,rating)
-VALUES (1,'hushtail1',1,12.90,'monarch hushtail black and yellow',1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/51/Hushtail_Monarch_Tier_3.png/revision/latest?cb=20190807005838',2);
+INSERT INTO products(productid,name,sellerid,price,description,category,quantity,img,rating)
+VALUES (1,'hushtail1',1,12.90,'monarch hushtail black and yellow',"Chair",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/51/Hushtail_Monarch_Tier_3.png/revision/latest?cb=20190807005838',2);
 
-INSERT INTO products(productid,name,sellerid,price,description,quantity,img,rating)
-VALUES (2,'hushtail2',1,13.90,'untamed hushtail red orange and yellow',1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/4/47/Hushtail_Untamed_Tier_3.png/revision/latest?cb=20190807005840',3);
+INSERT INTO products(productid,name,sellerid,price,description,category,quantity,img,rating)
+VALUES (2,'hushtail2',1,13.90,'untamed hushtail red orange and yellow',"Table",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/4/47/Hushtail_Untamed_Tier_3.png/revision/latest?cb=20190807005840',3);
 
-INSERT INTO products(productid,name,sellerid,price,description,quantity,img,rating)
-VALUES (3,'hushtail3',1,14.90,'Fae hushtail white and green',1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/2/21/Hushtail_Fae_Tier_3.png/revision/latest?cb=20190807005630',4.5);
+INSERT INTO products(productid,name,sellerid,price,description,category,quantity,img,rating)
+VALUES (3,'hushtail3',1,14.90,'Fae hushtail white and green',"Decoration",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/2/21/Hushtail_Fae_Tier_3.png/revision/latest?cb=20190807005630',4.5);
 
-INSERT INTO orders(userid,productid,status,quantity,orderid,date)
-VALUES (1,1,'preparing',1,1,'2020-01-01 10:2:10');
+INSERT INTO orders(userid,status,quantity,orderid,date)
+VALUES (1,'preparing',1,1,'2020-01-01 10:2:10');
 
-INSERT INTO orders(userid,productid,status,quantity,orderid,date)
-VALUES (1,2,'on the way',1,2,'2020-01-02 10:3:10');
+INSERT INTO orders(userid,status,quantity,orderid,date)
+VALUES (1,'on the way',1,2,'2020-01-02 10:3:10');
 
-INSERT INTO orders(userid,productid,status,quantity,orderid,date)
-VALUES (1,3,'arrived',1,3,'2020-01-03 10:4:10');
+INSERT INTO orders(userid,status,quantity,orderid,date)
+VALUES (1,'arrived',1,3,'2020-01-03 10:4:10');
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (1,1);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (1,2);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (1,3);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (2,1);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (3,1);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (2,3);
 
 insert INTO history (sellerid,buyerid,productid,orderid)
 VALUES(1,1,1,1);

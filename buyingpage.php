@@ -1,11 +1,14 @@
-<?php echo '
+<?php
+define('SCRIPT_DEBUG', true);
+echo '
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <title>Craft Pop House</title>
+<head>
 <meta charset="UTF-8">
-
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
+</head>
 <body>
 
 <header>
@@ -13,7 +16,7 @@
 	<div id="title"> | Craft Pop House</div>
 	<form>
 		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
+		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
 	<div class="loginbox">';
@@ -42,9 +45,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT name, price, quantity,img FROM products";
+$sql = "SELECT * FROM products";
 $result = $conn->query($sql);
-$keyword1;
 
 //Search Bar Function
 if ( isset( $_REQUEST['searchbar'] ) ) {
@@ -143,20 +145,27 @@ if(isset($_GET['rate5'])){
 	echo '<p>rate5 pressed</p>';
 }
 
-echo'<div id="productdisplay">';
+echo'<div id="filter_container" class="product_filters" name="filter">
+			<button class="filter_btn active" onclick="filterSelection(\'All\')"> Show All</button>
+			<button class="filter_btn" onclick="filterSelection(\'Chair\')"> Chair</button>
+			<button class="filter_btn" onclick="filterSelection(\'Table\')"> Table</button>
+			<button class="filter_btn" onclick="filterSelection(\'Decoration\')"> Decoration</button>
+			<button class="filter_btn" onclick="filterSelection(\'Accessories\')"> Accessories</button>
+		</div>
+		<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div class="productcolumn"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
+        echo '<div class="product_column '.$row["category"].'"> 
+		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100"/>
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
 		<div class="stargroup">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
 		</div>
 	</div>';
     }
@@ -168,4 +177,5 @@ $conn->close();
 		
 echo'</div>
 </body>
+<script src="filter.js" type="text/javascript" defer="true"></script>
 </html>';  ?>

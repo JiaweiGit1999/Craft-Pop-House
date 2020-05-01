@@ -219,7 +219,7 @@ form{
     overflow: hidden;
     width: 90%;
 }
-}
+
 #homepic1{
 	float: left;
 }
@@ -234,11 +234,13 @@ form{
 	display: inline;
 	overflow: hidden;
 }
+
 .remove{
 	background-color: red;
     border: 0;
     margin-top: 5px;
 }
+
 .product_column{
 	float: clear;
 	width: 10%;
