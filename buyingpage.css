@@ -47,6 +47,14 @@ button#search_button {
     margin-top: 2%;
     padding: 3%;
 }
+#sellingcentre{
+	padding: 20%;
+    color: white;
+    display: contents;
+}
+#topheadnav{
+	margin-bottom: 2%;
+}
 #profilebox{
 	background-color: #E4E3DF;
     margin-top: 3%;
@@ -153,11 +161,16 @@ button#search_button {
 
 #buyermenuform button{
 	padding: 1%;
-	background-color: orange;
+	background-color: #ECECE8;
 	border: none;
 	font-size: 16px;
 }
-
+#buyermenuform button:hover{
+	padding: 1%;
+	background-color: #ECECE8;
+	border: none;
+	font-size: 16px;
+}
 #loginform{
 	display: block;
 	margin-left:auto;
@@ -329,7 +342,7 @@ body{
 }
 header{
 	background-color:orange;
-	padding: 2%;
+	padding: 1% 2% 2% 2%;
 }
 
 /* CSS for the Filters */
