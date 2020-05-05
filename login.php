@@ -1,12 +1,4 @@
-<?php 
-session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: buyingpage.php");
-    exit;
-}
-echo '
+<?php echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -17,20 +9,6 @@ echo '
 <body>
 
 <header>
-<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre.php">Seller Centre</a>
-		<div class="loginbox">';
-	session_start();
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
-	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		
-	}else{
-		echo'<a href="login.php" class="loginbutton">Login</a>';
-	}
-	echo'</div>
-	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
 	<div id="title"> | Craft Pop House</div>
 	<form>
@@ -38,6 +16,9 @@ echo '
 		<input type="text" id="searchbar" name="searchbar">
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
+	<div class="loginbox">
+		<a href="login.php" class="loginbutton">Login</a>
+	</div>
 </header>
 <h1>Login Page</h1>';
 
@@ -110,15 +91,13 @@ function test_input($username,$password) {
 	$username = trim($username);
 	$password = trim($password);
 	$conn = connect();
-	$sql = "SELECT id,username, password FROM users";
+	$sql = "SELECT username, password FROM users";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			if($row["username"]==$username && $row["password"]==$password){
+			if($row["username"]==$username || $row["password"]==$password){
 				$match = true;
-				$id = $row["id"];
-				$matchusername = $row["username"];
 			}
 		}
 	} else {
@@ -126,10 +105,5 @@ function test_input($username,$password) {
 	}
 	if($match == true){
 		echo "login successful";
-		$_SESSION["loggedin"] = true;
-        $_SESSION["id"] = $id;
-        $_SESSION["username"] = $matchusername;
-		
-		header("location: login.php");
 	}
 }?>
