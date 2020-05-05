@@ -404,3 +404,9 @@ h1{
 	padding-bottom:2%;
 	margin:0;
 }
+
+#shopping-cart{
+	position: absolute;
+	top: 60px;
+	right: 40px;
+}
