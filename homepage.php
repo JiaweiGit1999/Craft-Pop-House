@@ -7,14 +7,9 @@
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 <header>
-	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
-	<form>
-		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
-		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
-	</form>
-	<div class="loginbox">';
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">';
 	session_start();
  
 	// Check if the user is already logged in, if yes then redirect him to welcome page
@@ -25,11 +20,18 @@
 		echo'<a href="login.php" class="loginbutton">Login</a>';
 		$website="login.php";
 	}
-		
 	echo'</div>
 	<div id="shopping-cart">
 		<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''.$website.'\'"/>
 	</div>
+	</div>
+	<img src="pic/logo.png" alt="logo" id="logo">
+	<div id="title"> | Craft Pop House</div>
+	<form>
+		<label for="searchbar"></label>
+		<input type="text" id="searchbar" name="searchbar">
+		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
+	</form>
 </header>';
 $servername = "localhost";
 $username = "root";
