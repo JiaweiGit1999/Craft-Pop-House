@@ -9,16 +9,19 @@
 <body>
 
 <header>
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">
+		<a href="login.php" class="loginbutton">Login</a>
+		</div>
+	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
+	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-	<div class="loginbox">
-		<a href="login.php" class="loginbutton">Login</a>
-	</div>
 </header>
 <h1>Login Page</h1>';
 
@@ -104,6 +107,10 @@ function test_input($username,$password) {
 		echo "0 results";
 	}
 	if($match == true){
-		echo "login successful";
+		session_start();
+		$_SESSION["loggedin"] = true;
+		$_SESSION["username"] = $_POST["username"];
+		header("refresh: 2; url=homepage.php");
+		
 	}
 }?>

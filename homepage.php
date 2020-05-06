@@ -26,7 +26,9 @@
 	</div>
 	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
+
+	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
+
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
@@ -79,7 +81,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 echo'
 <div id="hometopbox">
 	<h2>Best Sellers</h2>
-	<img src="pic/hushtail.png" width="342" height="344" id="homepic1">
+	<img src="pic/hushtail.png" width="342" height="344" id="homebigpic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
