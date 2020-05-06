@@ -6,6 +6,7 @@ body {
 
 #shopping-cart {
 	margin: 40px;
+	clear: both;
 }
 
 #product-grid {

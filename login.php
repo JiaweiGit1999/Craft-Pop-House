@@ -17,16 +17,23 @@ echo '
 <body>
 
 <header>
-	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
-	<form>
+	<div id="header-content">
+		<div id="website-logo">
+			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+	<form action="buyingpage.php">
 		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
+		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-	<div class="loginbox">
-		<a href="login.php" class="loginbutton">Login</a>
+<div class="loginbox">
+	<a href="login.php" class="loginbutton">Login</a>
+</div>
+<div id="shopping-cart-button">
+    <img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\'login.php\'"/>
+</div>
 	</div>
+	
 </header>
 <h1>Login Page</h1>';
 
