@@ -3,11 +3,9 @@
 <html>
 <title>Craft Pop House</title>
 <meta charset="UTF-8">
-
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
-
 <header>
 	<div id="topheadnav">
 		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
@@ -17,14 +15,18 @@
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		
+		$website="cart.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
 	}
 	echo'</div>
+	<div id="shopping-cart">
+		<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''.$website.'\'"/>
+	</div>
 	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
+	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
@@ -77,7 +79,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 echo'
 <div id="hometopbox">
 	<h2>Best Sellers</h2>
-	<img src="pic/hushtail.png" width="342" height="344" id="homepic1">
+	<img src="pic/hushtail.png" width="342" height="344" id="homebigpic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">

@@ -252,8 +252,7 @@ form{
     overflow: hidden;
     width: 90%;
 }
-}
-#homepic1{
+#homebigpic{
 	float: left;
 }
 .productcolumn{
@@ -403,4 +402,10 @@ h1{
 	padding-top:2%;
 	padding-bottom:2%;
 	margin:0;
+}
+
+#shopping-cart{
+	position: absolute;
+	top: 60px;
+	right: 40px;
 }
