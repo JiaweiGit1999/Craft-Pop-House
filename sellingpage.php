@@ -25,7 +25,7 @@
 	echo'</div>
 	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
+	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
@@ -65,7 +65,7 @@ echo'<div id="sellersidenav">
 	</div>';
 if(isset($_GET["pid"])){
     $_SESSION["sellerproductid"] = $_GET["pid"];
-	header('Location:productdetails.php');
+	header('Location:productform.php');
 	exit;
 }
 echo'<div id="productdisplay">';

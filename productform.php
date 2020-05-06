@@ -1,4 +1,11 @@
-<?php echo '
+<?php 
+session_start();
+
+if(isset($_SESSION["sellerproductid"])){
+    $pid = $_SESSION["sellerproductid"];
+}
+
+echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -11,7 +18,6 @@
 <div id="topheadnav">
 		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
 		<div class="loginbox">';
-	session_start();
  
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -49,20 +55,18 @@ function connectdb() {
 }
 
 $conn = connectdb();
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE productid = ".$pid;
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($row["productid"] == 2){
-			$img = $row["img"];
-			$name = $row["name"];
-			$price = $row["price"];
-			$rating = $row["rating"];
-			$sellerid = $row["sellerid"];
-			$description = $row["description"];
-		}
+		$img = $row["img"];
+		$name = $row["name"];
+		$price = $row["price"];
+		$rating = $row["rating"];
+		$sellerid = $row["sellerid"];
+		$description = $row["description"];
     }
 } else {
     echo "0 results";
@@ -95,12 +99,12 @@ SET
     price = '.$newprice.',
     description = "'.$newdescription.'"
 WHERE
-    productid = 2';
+    productid = '.$pid;
 	
 	if ($conn->query($sql) === TRUE) {
-		echo "Record updated successfully";
+		print_r ("Record updated successfully");
 	} else {
-		echo "Error updating record: " . $conn->error;
+		print_r( "Error updating record: " . $conn->error);
 	}
 }else{
     //code to be executed  
