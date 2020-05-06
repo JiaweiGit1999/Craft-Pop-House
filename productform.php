@@ -8,22 +8,8 @@
 <body>
 
 <header >
-<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
-		<div class="loginbox">';
-	session_start();
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
-	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		
-	}else{
-		echo'<a href="login.php" class="loginbutton">Login</a>';
-	}
-	echo'</div>
-	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
-	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
+	<div id="title"> | Craft Pop House</div>
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">
