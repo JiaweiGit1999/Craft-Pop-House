@@ -26,9 +26,7 @@
 	</div>
 	</div>
 	<img src="pic/logo.png" alt="logo" id="logo">
-
 	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
-
 	<form>
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar">

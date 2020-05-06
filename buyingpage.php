@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 define('SCRIPT_DEBUG', true);
 echo '
 <!DOCTYPE html>
@@ -160,21 +160,26 @@ echo'<div id="filter_container" class="product_filters" name="filter">
 			<button class="filter_btn" onclick="filterSelection(\'Accessories\')"> Accessories</button>
 		</div>
 		<div id="productdisplay">';
+if(isset($_GET["pid"])){
+	$_SESSION["sellerproductid"] == $_GET["pid"];
+	header("Location: productdetails.php");
+}
+echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div class="product_column '.$row["category"].'"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100"/>
+        echo '<a href=?pid='.$row["productid"].' name="productid"><div class="productcolumn"> 
+		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
 		<div class="stargroup">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 		</div>
-	</div>';
+	</div></a>';
     }
 } else {
     echo "0 results";
@@ -185,4 +190,6 @@ $conn->close();
 echo'</div>
 </body>
 <script src="filter.js" type="text/javascript" defer="true"></script>
-</html>';  ?>
+</html>';  
+ob_end_flush();
+?>
