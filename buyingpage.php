@@ -61,7 +61,7 @@ $result = $conn->query($sql);
 //Search Bar Function
 if ( isset( $_REQUEST['searchbar'] ) ) {
 	$searchArray = explode(" ",$_REQUEST['searchbar']);
-	$sql = "SELECT name, price, description, category, quantity,img, ";
+	$sql = "SELECT productid, name, price, description, category, quantity,img, ";
 
 	for ($i = 0; $i < count($searchArray); $i++) {
 	$sql .= "ROUND ((LENGTH(description) - LENGTH( REPLACE ( description, '$searchArray[$i]', '') ) ) / LENGTH('$searchArray[$i]'))
