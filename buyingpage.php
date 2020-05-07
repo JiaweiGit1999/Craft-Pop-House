@@ -171,7 +171,7 @@ echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<a href=?pid='.$row["productid"].' name="productid"><div class="productcolumn"> 
+        echo '<a href=?pid='.$row["productid"].' name="productid"><div class="product_column '.$row["category"].'"> 
 		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
