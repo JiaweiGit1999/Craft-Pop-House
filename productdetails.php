@@ -1,4 +1,11 @@
-<?php echo '
+<?php
+session_start();
+ 
+if(isset($_SESSION["sellerproductid"])){
+    $pid = $_SESSION["sellerproductid"];
+}
+
+ echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -8,17 +15,35 @@
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
-<header >
-	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
-	<form>
+<header>
+	<div id="header-content">
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">';
+ 
+	// Check if the user is already logged in, if yes then redirect him to welcome page
+	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
+		$website="profile.php";
+	}else{
+		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
+	}
+	echo'</div>
+	</div>
+		<div id="website-logo">
+			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
+		</div>
+	<form action="buyingpage.php">
 		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
+		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-	<div class="loginbox">
-		<a href="login.php" class="loginbutton">Login</a>
 	</div>
+	
 </header>';
 $servername = "localhost";
 $username = "root";
@@ -52,7 +77,7 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
-$sql = "SELECT * FROM seller WHERE id = ".$sellerid;
+$sql = "SELECT * FROM seller WHERE id = $sellerid.";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

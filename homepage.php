@@ -3,31 +3,39 @@
 <html>
 <title>Craft Pop House</title>
 <meta charset="UTF-8">
-
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
-
 <header>
-	<img src="pic/logo.png" alt="logo" id="logo">
-	<div id="title"> | Craft Pop House</div>
-	<form>
-		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
-		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
-	</form>
-	<div class="loginbox">';
-	session_start();
+	<div id="header-content">
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">';
+			session_start();
  
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		
+		$website="profile.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
 	}
-		
 	echo'</div>
+	</div>
+		<div id="website-logo">
+			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
+		</div>
+	<form action="buyingpage.php">
+		<label for="searchbar"></label>
+		<input type="text" id="searchbar" name="searchbar"/>
+		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
+	</form>
+	</div>
+	
 </header>';
 $servername = "localhost";
 $username = "root";
@@ -75,7 +83,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 echo'
 <div id="hometopbox">
 	<h2>Best Sellers</h2>
-	<img src="pic/hushtail.png" width="342" height="344" id="homepic1">
+	<img src="pic/hushtail.png" width="342" height="344" id="homebigpic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
 	<img src="pic/hushtail.png" width="170" height="170" class="homepic">

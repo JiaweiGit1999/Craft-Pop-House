@@ -1,19 +1,43 @@
-button#search_button {
-  background-color: DodgerBlue; /* Blue background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  padding-top: 1%;
-  padding-bottom: 0.3%;
-  padding-left: 9px;
-  padding-right: 9px;
-  font-size: 16px; /* Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
+#searchbar-button{
+	display:inline;
 }
 
-#logo{
-	width : 6%;
-	height : 6%;
-	float : left;
+#searchbar{
+	width: 50%;
+	height:25px;
+	font-size:14pt;
+	margin-top:20px;
+	border-radius:5px;
+	border-style: solid;
+	border-color: white;
+}
+button#search_button {
+	background-color: orange; 
+	color: white; 
+	font-size: 20px; 
+	cursor: pointer;
+	border-color: white;
+	border-radius: 5px;
+	border-style: solid;
+	outline-color: white;
+}
+#header-content{
+	margin: 0 auto;
+	padding: 40px 200px;
+	height:100%;
+	text-align: center;
+}
+#website-logo{
+	float: left;
+	height:150px;
+	margin-top: 15px;
+}
+
+header{
+	background-color:orange;
+	width: 100%;
+	height: 150px;
+	position: sticky;
 }
 
 #searchlogo{
@@ -21,16 +45,8 @@ button#search_button {
 	height : 1%;
 }
 
-#title{
-	display:inline;
-}
 
-#searchbar{
-	width: 50%;
-	padding-top : 1%;
-	margin-left : 2%;
-	margin-top : 2%;
-}
+
 #productdisplay{
 	width: 70%;
 	height: 100%;
@@ -98,28 +114,27 @@ button#search_button {
 	height: 70%;
 }
 
-#detailsprice{
-	float: clear;
-}
 #filterhead{
 	margin-left:7%;
 	font-size:20px;
 }
 #sellersidenav{
 	background-color:white;
-	height: 40%;
+	height: 160px;
 	margin:2%;
 	float:left;
 	display:inline;
 	overflow:hidden;
 	text-align:left;
 	width: 12%;
+	clear: both;
 }
 
 #buyersidenav{
 	background-color:white;
 	height: 40%;
 	margin:2%;
+	clear: both;
 	float:left;
 	display:inline;
 	overflow:hidden;
@@ -222,7 +237,6 @@ button#search_button {
 form{
 	width: 20%;
 	display: inline;
-	margin-left:3%;
 }
 #detailsinfo div{
 	margin-top:3%;
@@ -239,12 +253,11 @@ form{
     overflow: hidden;
     width: 90%;
 }
-}
-#homepic1{
+
+#homebigpic{
 	float: left;
 }
 .productcolumn{
-	float: clear;
 	width: 100px;
 	height: 220px;
 	margin: 2%;
@@ -260,7 +273,6 @@ form{
     margin-top: 5px;
 }
 .product_column{
-	float: clear;
 	width: 10%;
 	height: 12%;
 	margin: 2%;
@@ -322,14 +334,13 @@ a:link{
 	text-decoration:none;
 }
 
-
+html{
+	height:auto;
+}
 body{
 	margin: 0;
 	background-color: #E4E3DF;
-}
-header{
-	background-color:orange;
-	padding: 2%;
+	height:100%;
 }
 
 /* CSS for the Filters */
@@ -342,7 +353,6 @@ header{
 	display: block;
 }
 .homeproductcolumn{
-	float: clear;
     width: 100px;
     height: 200px;
     margin: 1% 0 1% 1%;
@@ -358,9 +368,8 @@ header{
     border: 3px solid #CECDC9;
     width: 91%;
     margin-left: 3%;
-    margin-top: 2%;
+    margin-top: 8%;
     margin-bottom: 10%;
-    margin-top: 6%;
 }
 .homepic{
 	margin-left:2%;
@@ -390,4 +399,9 @@ h1{
 	padding-top:2%;
 	padding-bottom:2%;
 	margin:0;
+}
+
+#shopping-cart-button{
+	float: right;
+	clear: right;
 }
