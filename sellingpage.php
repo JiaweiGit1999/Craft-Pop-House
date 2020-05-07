@@ -9,32 +9,37 @@
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 
-<header >
-<div id="topheadnav">
+<header>
+	<div id="header-content">
+	<div id="topheadnav">
 		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
 		<div class="loginbox">';
-	session_start();
+			session_start();
  
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		
+		$website="profile.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
 	}
 	echo'</div>
 	</div>
-	<img src="pic/logo.png" alt="logo" id="logo">
-	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
-	<form>
+		<div id="website-logo">
+			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
+		</div>
+	<form action="buyingpage.php">
 		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
+		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-</header>
-<div>
-
-</div>';
+	</div>
+	
+</header>';
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -72,7 +77,7 @@ echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<a href="?pid='.$row["productid"].'"><div class="productcolumn"> 
+        echo '<div class="productcolumn"> 
 		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
@@ -87,7 +92,7 @@ if ($result->num_rows > 0) {
           <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
           <input type="submit" id="submit" name="Delete" value="Delete" class="remove"/>
         </form>
-	</div></a>';
+	</div>';
     }
 } else {
     echo "0 results";
@@ -97,5 +102,4 @@ $conn->close();
 		
 echo'</div>
 </body>
-</html>';  
-?>
+</html>';  ?>
