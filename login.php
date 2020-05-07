@@ -1,12 +1,4 @@
-<?php 
-session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: buyingpage.php");
-    exit;
-}
-echo '
+<?php echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -18,23 +10,35 @@ echo '
 
 <header>
 	<div id="header-content">
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">';
+			session_start();
+ 
+	// Check if the user is already logged in, if yes then redirect him to welcome page
+	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
+		$website="profile.php";
+	}else{
+		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
+	}
+	echo'</div>
+	</div>
 		<div id="website-logo">
 			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
 		</div>
 	<form action="buyingpage.php">
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-<div class="loginbox">
-	<a href="login.php" class="loginbutton">Login</a>
-</div>
-<div id="shopping-cart-button">
-    <img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\'login.php\'"/>
-</div>
 	</div>
 	
-</header>
+</header>';
 <h1>Login Page</h1>';
 
 Function connect(){
@@ -106,26 +110,23 @@ function test_input($username,$password) {
 	$username = trim($username);
 	$password = trim($password);
 	$conn = connect();
-	$sql = "SELECT id,username, password FROM users";
+	$sql = "SELECT username, password FROM users";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
-			if($row["username"]==$username && $row["password"]==$password){
+			if($row["username"]==$username || $row["password"]==$password){
 				$match = true;
-				$id = $row["id"];
-				$matchusername = $row["username"];
 			}
 		}
 	} else {
 		echo "0 results";
 	}
 	if($match == true){
-		echo "login successful";
+		session_start();
 		$_SESSION["loggedin"] = true;
-        $_SESSION["id"] = $id;
-        $_SESSION["username"] = $matchusername;
+		$_SESSION["username"] = $_POST["username"];
+		header("refresh: 2; url=homepage.php");
 		
-		header("location: login.php");
 	}
 }?>

@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 define('SCRIPT_DEBUG', true);
 echo '
 <!DOCTYPE html>
@@ -13,30 +13,32 @@ echo '
 
 <header>
 	<div id="header-content">
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">';
+			session_start();
+ 
+	// Check if the user is already logged in, if yes then redirect him to welcome page
+	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
+		$website="profile.php";
+	}else{
+		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
+	}
+	echo'</div>
+	</div>
 		<div id="website-logo">
 			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
 		</div>
 	<form action="buyingpage.php">
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-<div class="loginbox">';
-    session_start();
-
-    // Check if the user is already logged in, if yes then redirect him to welcome page
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    echo '<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-    $website="cart.php";
-    }else{
-    echo '<a href="login.php" class="loginbutton">Login</a>';
-    $website="login.php";
-    }
-
-    echo '</div>
-<div id="shopping-cart-button">
-    <img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
-</div>
 	</div>
 	
 </header>';
@@ -161,21 +163,26 @@ echo'<div id="filter_container" class="product_filters" name="filter">
 			<button class="filter_btn" onclick="filterSelection(\'Accessories\')"> Accessories</button>
 		</div>
 		<div id="productdisplay">';
+if(isset($_GET["pid"])){
+	$_SESSION["sellerproductid"] == $_GET["pid"];
+	header("Location: productdetails.php");
+}
+echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div class="product_column '.$row["category"].'"> 
-		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100"/>
+        echo '<a href=?pid='.$row["productid"].' name="productid"><div class="productcolumn"> 
+		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
 		<div class="stargroup">
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
-			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo"/>
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
+			<input type="image" src="pic/stars.png" alt="starslogo" class="starslogo">
 		</div>
-	</div>';
+	</div></a>';
     }
 } else {
     echo "0 results";
@@ -186,4 +193,6 @@ $conn->close();
 echo'</div>
 </body>
 <script src="filter.js" type="text/javascript" defer="true"></script>
-</html>';  ?>
+</html>';  
+ob_end_flush();
+?>
