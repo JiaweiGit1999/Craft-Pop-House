@@ -11,27 +11,35 @@ echo '
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <body>
 <header>
-<div id="topheadnav">
+	<div id="header-content">
+	<div id="topheadnav">
 		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
 		<div class="loginbox">';
-	session_start();
+			session_start();
  
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		
+		$website="cart.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
 	}
 	echo'</div>
 	</div>
-	<img src="pic/logo.png" alt="logo" id="logo">
-	<a href="homepage.php"><div id="title"> | Craft Pop House</div></a>
-	<form>
+		<div id="website-logo">
+			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
+		</div>
+	<form action="buyingpage.php">
 		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar">
+		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
+	</div>
+	
 </header>';
 echo '
 	<div id="outsidebox">
@@ -93,7 +101,7 @@ if(isset($_REQUEST["Submit"])){
 	}
 	$sql = "INSERT INTO Products (name,sellerid,price,description,category,quantity,img) VALUES ('$name',1,$price,'$description','$category',$quantity,'$target_file')";
 	$result = $conn->query($sql);
-	if($result && $uploadOk == 1)
+	if($result)
 	{
 		header("Location:addproducts_success.php");
 	}
