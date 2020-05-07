@@ -12,24 +12,15 @@
 	<div id="header-content">
 	<div id="topheadnav">
 		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
-		<div class="loginbox">';
-			session_start();
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
-	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		$website="profile.php";
-	}else{
-		echo'<a href="login.php" class="loginbutton">Login</a>';
-		$website="login.php";
-	}
-	echo'</div>
+		<div class="loginbox">
+			<a href="login.php" class="loginbutton">Login</a>
+		</div>
 	</div>
 		<div id="website-logo">
 			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
 		</div>
 		<div id="shopping-cart-button">
-			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\'login.php\'"/>
 		</div>
 	<form action="buyingpage.php">
 		<label for="searchbar"></label>
