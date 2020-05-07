@@ -55,7 +55,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE product_status !='deleted'";
 $result = $conn->query($sql);
 
 //Search Bar Function
@@ -69,7 +69,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	if($i !=count($searchArray)-1)
 		$sql .= "+ ";
 }
-	$sql .= "AS Count FROM products WHERE description REGEXP '";
+	$sql .= "AS Count FROM products WHERE product_status !='deleted' AND (description REGEXP '";
 	for ($i = 0; $i < count($searchArray); $i++) {
 		$sql .= "$searchArray[$i]";
 		if($i !=count($searchArray)-1)
@@ -81,7 +81,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 		if($i !=count($searchArray)-1)
 			$sql .= "|";
 	}	
-	$sql .="' ORDER BY count desc ";
+	$sql .="') ORDER BY count desc ";
 	$result = $conn->query($sql);
 }
 echo'<form id="buyersidenav">
