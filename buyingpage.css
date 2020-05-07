@@ -278,7 +278,7 @@ form{
 	padding: 1%;
 	border: 1px solid black;
 	float:left;
-	display: hidden;
+	display: none;
 	overflow: hidden;
 }
 
