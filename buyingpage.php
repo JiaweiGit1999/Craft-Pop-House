@@ -164,7 +164,7 @@ echo'<div id="filter_container" class="product_filters" name="filter">
 		</div>
 		<div id="productdisplay">';
 if(isset($_GET["pid"])){
-	$_SESSION["sellerproductid"] == $_GET["pid"];
+	$_SESSION["sellerproductid"] = $_GET["pid"];
 	header("Location: productdetails.php");
 }
 echo'<div id="productdisplay">';

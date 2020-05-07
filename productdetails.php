@@ -58,20 +58,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE productid = ".$pid;
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($row["productid"] == 2){
-			$img = $row["img"];
-			$name = $row["name"];
-			$price = $row["price"];
-			$rating = $row["rating"];
-			$sellerid = $row["sellerid"];
-			$description = $row["description"];
-		}
+		$img = $row["img"];
+		$name = $row["name"];
+		$price = $row["price"];
+		$rating = $row["rating"];
+		$sellerid = $row["sellerid"];
+		$description = $row["description"];
     }
 } else {
     echo "0 results";
