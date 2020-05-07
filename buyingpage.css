@@ -272,13 +272,13 @@ form{
     margin-top: 5px;
 }
 .product_column{
-	width: 10%;
-	height: 12%;
+	width: 100px;
+	height: 220px;
 	margin: 2%;
 	padding: 1%;
 	border: 1px solid black;
 	float:left;
-	display: none;
+	display: hidden;
 	overflow: hidden;
 }
 
