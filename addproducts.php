@@ -101,7 +101,7 @@ if(isset($_REQUEST["Submit"])){
 	}
 	$sql = "INSERT INTO Products (name,sellerid,price,description,category,quantity,img) VALUES ('$name',1,$price,'$description','$category',$quantity,'$target_file')";
 	$result = $conn->query($sql);
-	if($result && $uploadOk == 1)
+	if($result)
 	{
 		header("Location:addproducts_success.php");
 	}
