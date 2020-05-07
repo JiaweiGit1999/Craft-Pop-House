@@ -38,7 +38,7 @@
 	</form>
 	</div>
 	
-</header>';
+</header>
 <h1>Login Page</h1>';
 
 Function connect(){
