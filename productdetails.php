@@ -24,7 +24,7 @@ if(isset($_SESSION["sellerproductid"])){
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		$website="profile.php";
+		$website="cart.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
 		$website="login.php";
