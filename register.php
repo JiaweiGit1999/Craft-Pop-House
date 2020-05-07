@@ -14,29 +14,32 @@ echo '
 
 <header>
 	<div id="header-content">
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">';
+			session_start();
+ 
+	// Check if the user is already logged in, if yes then redirect him to welcome page
+	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
+		$website="cart.php";
+	}else{
+		echo'<a href="login.php" class="loginbutton">Login</a>';
+		$website="login.php";
+	}
+	echo'</div>
+	</div>
 		<div id="website-logo">
 			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
 		</div>
 	<form action="buyingpage.php">
 		<label for="searchbar"></label>
 		<input type="text" id="searchbar" name="searchbar"/>
 		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
 	</form>
-<div class="loginbox">';
-
-    // Check if the user is already logged in, if yes then redirect him to welcome page
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    echo '<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-    $website="cart.php";
-    }else{
-    echo '<a href="login.php" class="loginbutton">Login</a>';
-    $website="login.php";
-    }
-
-    echo '</div>
-<div id="shopping-cart-button">
-    <img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\''. $website .'\'"/>
-</div>
 	</div>
 	
 </header>
@@ -96,9 +99,9 @@ echo'<form id="loginform" onsubmit="return validateForm()" method="post" action=
 	<label for="username">Username: </label><br>
 	<input type="text" name="username" class="logininput" required><br><br>
 	<label for="password">Password: </label><br>
-	<input type="text" name="password" class="logininput" required><br>
+	<input type="password" name="password" class="logininput" required><br>
 	<label for="re-enterpassword">Re-enter Password: </label><br>
-	<input type="text" name="re-enterpassword" class="logininput" required>
+	<input type="password" name="re-enterpassword" class="logininput" required>
 	<p id="errortxt"></p><br>
 	<label for="email">Email: </label><br>
 	<input type="text" name="email" class="logininput" required><br><br>
