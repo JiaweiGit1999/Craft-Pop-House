@@ -43,24 +43,27 @@ echo '
 </header>';
 echo '
 	<div id="outsidebox">
-	<form action="addproducts.php" method="post" enctype="multipart/form-data" onsubmit="return validate()">
-		<h1>Add Products</h1>
+	<h1>Add Products</h1>
+	<form action="addproducts.php" method="post" enctype="multipart/form-data" onsubmit="return validate()" id="addproductsform">
+		
 		<p><img id="image" src="pic/no-image.jpg" height="100" width="100"/></p>
 		<p><input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" required="required"/></p>
-		<p>Name: <input type="text" name="name" limit="20" required="required"/></p>
-		<p>Price: RM <input type="number" name="price" min="0.01" step="0.01" value="0.00" placeholder="0.00" pattern="[0-9]+[.][0-9]{2}" required="required"/></p>
-		<p>
-			<label for="category">Choose a category:</label>
-			<select id="category" name="category">
-			  <option value="Chair">Chair</option>
-			  <option value="Table">Table</option>
-			  <option value="Decoration">Decoration</option>
-			  <option value="Accessories" selected="selected">Accessories</option>
-			</select>
-		</p>
-		<p>Quantity: <input type="number" name="quantity" min="1"/></p>
-		<p>Description: <textarea name="description" required></textarea></p>
-		<p><input type="submit" id="submit" name="Submit" value"Add"/>&nbsp;<input type="reset" name="Reset"/>
+		<label for="name">Name: </label>
+		<input type="text" name="name" limit="20" required="required"/>
+		<label for="name">Price: RM</label>
+		<input type="number" name="price" min="0.01" step="0.01" value="0.00" placeholder="0.00" pattern="[0-9]+[.][0-9]{2}" required="required"/>
+		<label for="category">Choose a category:</label>
+		<select id="category" name="category">
+			<option value="Chair">Chair</option>
+			<option value="Table">Table</option>
+			<option value="Decoration">Decoration</option>
+			<option value="Accessories" selected="selected">Accessories</option>
+		</select>
+		<label for="name">Quantity: </label>
+		<input type="number" name="quantity" min="1"/>
+		<label for="name">Description: </label>
+		<textarea name="description" required></textarea>
+		<input type="submit" id="submit" name="Submit" value"Add"/>&nbsp;<input type="reset" name="Reset"/>
 	</form>
 	</div>
 </body>
