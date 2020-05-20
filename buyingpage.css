@@ -47,7 +47,7 @@ header{
 
 
 #productdisplay{
-	width: 70%;
+	width: 80%;
 	height: 100%;
 	text-align: center;
 	overflow: hidden;
@@ -272,8 +272,8 @@ form{
     margin-top: 5px;
 }
 .product_column{
-	width: 10%;
-	height: 12%;
+	width: 100px;
+	height: 220px;
 	margin: 2%;
 	padding: 1%;
 	border: 1px solid black;

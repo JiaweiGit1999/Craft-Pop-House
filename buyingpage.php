@@ -21,7 +21,7 @@ echo '
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		$website="profile.php";
+		$website="cart.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
 		$website="login.php";
@@ -55,13 +55,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE product_status !='deleted'";
 $result = $conn->query($sql);
 
 //Search Bar Function
 if ( isset( $_REQUEST['searchbar'] ) ) {
 	$searchArray = explode(" ",$_REQUEST['searchbar']);
-	$sql = "SELECT name, price, description, category, quantity,img, ";
+	$sql = "SELECT productid, name, price, description, category, quantity,img, ";
 
 	for ($i = 0; $i < count($searchArray); $i++) {
 	$sql .= "ROUND ((LENGTH(description) - LENGTH( REPLACE ( description, '$searchArray[$i]', '') ) ) / LENGTH('$searchArray[$i]'))
@@ -69,7 +69,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	if($i !=count($searchArray)-1)
 		$sql .= "+ ";
 }
-	$sql .= "AS Count FROM products WHERE description REGEXP '";
+	$sql .= "AS Count FROM products WHERE product_status !='deleted' AND (description REGEXP '";
 	for ($i = 0; $i < count($searchArray); $i++) {
 		$sql .= "$searchArray[$i]";
 		if($i !=count($searchArray)-1)
@@ -81,7 +81,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 		if($i !=count($searchArray)-1)
 			$sql .= "|";
 	}	
-	$sql .="' ORDER BY count desc ";
+	$sql .="') ORDER BY count desc ";
 	$result = $conn->query($sql);
 }
 echo'<form id="buyersidenav">
@@ -164,14 +164,14 @@ echo'<div id="filter_container" class="product_filters" name="filter">
 		</div>
 		<div id="productdisplay">';
 if(isset($_GET["pid"])){
-	$_SESSION["sellerproductid"] == $_GET["pid"];
+	$_SESSION["sellerproductid"] = $_GET["pid"];
 	header("Location: productdetails.php");
 }
 echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<a href=?pid='.$row["productid"].' name="productid"><div class="productcolumn"> 
+        echo '<a href=?pid='.$row["productid"].' name="productid"><div class="product_column '.$row["category"].'"> 
 		<img src=' . $row["img"]. ' alt="testing" class="productimg" width="100" height="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>

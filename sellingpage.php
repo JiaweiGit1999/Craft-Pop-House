@@ -19,7 +19,7 @@
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		$website="profile.php";
+		$website="cart.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
 		$website="login.php";
@@ -77,7 +77,7 @@ echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div class="productcolumn"> 
+        echo '<a href="?pid='.$row["productid"].'"><div class="productcolumn"> 
 		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
@@ -92,7 +92,7 @@ if ($result->num_rows > 0) {
           <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
           <input type="submit" id="submit" name="Delete" value="Delete" class="remove"/>
         </form>
-	</div>';
+	</div></a>';
     }
 } else {
     echo "0 results";

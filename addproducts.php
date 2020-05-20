@@ -20,7 +20,7 @@ echo '
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
-		$website="profile.php";
+		$website="cart.php";
 	}else{
 		echo'<a href="login.php" class="loginbutton">Login</a>';
 		$website="login.php";
@@ -101,7 +101,7 @@ if(isset($_REQUEST["Submit"])){
 	}
 	$sql = "INSERT INTO Products (name,sellerid,price,description,category,quantity,img) VALUES ('$name',1,$price,'$description','$category',$quantity,'$target_file')";
 	$result = $conn->query($sql);
-	if($result && $uploadOk == 1)
+	if($result)
 	{
 		header("Location:addproducts_success.php");
 	}
