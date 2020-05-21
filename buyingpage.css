@@ -77,6 +77,9 @@ header{
     border: 0;
     background-color: orange;
 }
+#save{
+	display:none;
+}
 #homeproductdisplay{
 	width: 100%;
     height: 100%;

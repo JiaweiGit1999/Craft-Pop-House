@@ -17,6 +17,7 @@
  
 	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+		$userid = $_SESSION["loginid"]; 
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
 	}else{
@@ -52,7 +53,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM users Where id = 1";
+$sql = "SELECT * FROM users Where id = ".$userid;
 $result = $conn->query($sql);
 
 
@@ -60,36 +61,48 @@ echo'<div id="sellersidenav">
 		<a class="sellermenu" href="sellingpage.php">Your Profile</a>
 		<a class="sellermenu" href="sellingpage.php">Sales History</a>
 		<a class="sellermenu" href="sellingpage.php">Orders History</a>
-	</div>';
+	</div>
+	';
 
-echo'<div id="profiledisplay">';
+echo'<div id="profiledisplay"><div id="profilebox">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div id="profilebox"> 
-		<input type="button" name="edit" value="Edit" id="editprofile"></input>
-		<img src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
-		<p class="Username:">Username: ' . $row["username"] . '</p>
-		<p class="Email: ">Email: ' . $row["email"] . '</p>
-		<p class="Address: ">Address: ' . $row["address"] . '</p>
-		
-	</div>';
+        echo ' 
+		<div id="edit">
+			<input type="button" name="edit" value="Edit" id="editprofile" onclick="DisplayProfileForm()"></input>
+			<img src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
+			<p class="Username:">Username: ' . $row["username"] . '</p>
+			<p class="Email: ">Email: ' . $row["email"] . '</p>
+			<p class="Address: ">Address: ' . $row["address"] . '</p>
+		</div>
+		<form method="POST" action="" id="save">
+			<input type="submit" name="save" value="Save" id="editprofile" onclick="DisplayProfileInfo()"></input>
+			<img src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
+			<p class="Username:">Username: <input type="text" value=' . $row["username"] . '></input></p>
+			<p class="Email: ">Email: <input type="text" value=' . $row["email"] . '></input></p>
+			<p class="Address: ">Address: <input type="text" value=' . $row["address"] . '></input></p>
+		<form>
+	';
     }
 } else {
     echo "0 results";
 }
-
-if(isset($_REQUEST["Delete"]))
-{
-	$productID = $_REQUEST["ProductID"];
-	$sql = "UPDATE Products product_status SET product_status='deleted' where productid=".$productID."";
-	$result = $conn->query($sql);
-	if($result)
-		header("Refresh:0");
-}
-
 $conn->close();
 		
-echo'</div>
+echo'</div></div>
 </body>
+<script>
+function DisplayProfileForm() {
+  var x = document.getElementById("edit");
+  var y = document.getElementById("save");
+  x.style.display = "none";
+  y.style.display = "contents";
+}
+
+function DisplayProfileInfo() {
+  document.getElementById("save").style.display = "none";
+  document.getElementById("edit").style.display = "contents";
+}
+</script>
 </html>';  ?>
