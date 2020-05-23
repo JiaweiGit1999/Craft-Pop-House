@@ -13,12 +13,18 @@ echo '
 
 <header>
 	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+	<div id="topheadnav">';
+	session_start();
+	if($_SESSION["loginstatus"] === "Seller"){
+		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
+	}
+	else if($_SESSION["loginstatus"] === "Admin"){
+		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
+	}else{
+		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
+	}
+	echo'
 		<div class="loginbox">';
-			session_start();
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
@@ -55,7 +61,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE product_status !='deleted'";
 $result = $conn->query($sql);
 
 //Search Bar Function
@@ -69,7 +75,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	if($i !=count($searchArray)-1)
 		$sql .= "+ ";
 }
-	$sql .= "AS Count FROM products WHERE description REGEXP '";
+	$sql .= "AS Count FROM products WHERE product_status !='deleted' AND (description REGEXP '";
 	for ($i = 0; $i < count($searchArray); $i++) {
 		$sql .= "$searchArray[$i]";
 		if($i !=count($searchArray)-1)
@@ -81,7 +87,7 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 		if($i !=count($searchArray)-1)
 			$sql .= "|";
 	}	
-	$sql .="' ORDER BY count desc ";
+	$sql .="') ORDER BY count desc ";
 	$result = $conn->query($sql);
 }
 echo'<form id="buyersidenav">
@@ -164,7 +170,7 @@ echo'<div id="filter_container" class="product_filters" name="filter">
 		</div>
 		<div id="productdisplay">';
 if(isset($_GET["pid"])){
-	$_SESSION["sellerproductid"] == $_GET["pid"];
+	$_SESSION["sellerproductid"] = $_GET["pid"];
 	header("Location: productdetails.php");
 }
 echo'<div id="productdisplay">';

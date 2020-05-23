@@ -84,7 +84,7 @@ echo'<form id="loginform" method="post" action="'.htmlspecialchars($_SERVER["PHP
 	<label for="username">Username: </label><br>
 	<input type="text" name="username" class="logininput"><br><br>
 	<label for="password">Password: </label><br>
-	<input type="text" name="password" class="logininput"><br>
+	<input type="password" name="password" class="logininput"><br>
 	<a href=" " class="forgot">forgot password?</a>
 	<input type="submit" value="Login" id="login">
 	<a href="register.php" id="register">Register</a>
@@ -98,16 +98,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function test_input($username,$password) {
 	$match = false;
+	$id = 0;
 	$username = trim($username);
 	$password = trim($password);
 	$conn = connect();
-	$sql = "SELECT username, password FROM users";
+	$sql = "SELECT * FROM users";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
 			if($row["username"]==$username || $row["password"]==$password){
 				$match = true;
+				$id = $row["id"];
+				$status = $row["status"];
 			}
 		}
 	} else {
@@ -117,7 +120,14 @@ function test_input($username,$password) {
 		session_start();
 		$_SESSION["loggedin"] = true;
 		$_SESSION["username"] = $_POST["username"];
-		header("refresh: 2; url=homepage.php");
+		$_SESSION["loginid"] = $id;
+		$_SESSION["loginstatus"] = $status;
+		if($status == "Seller"){
+			header("refresh: 2; url=sellingpage.php");
+		}else{
+			header("refresh: 2; url=homepage.php");
+		}
+		
 		
 	}
 }?>

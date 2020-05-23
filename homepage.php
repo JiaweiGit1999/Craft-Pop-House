@@ -1,4 +1,5 @@
-<?php echo '
+<?php ;
+echo '
 <!DOCTYPE html>
 <html>
 <title>Craft Pop House</title>
@@ -8,12 +9,18 @@
 <body>
 <header>
 	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+	<div id="topheadnav">';
+	session_start();
+	if($_SESSION["loginstatus"] === "Seller"){
+		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
+	}
+	else if($_SESSION["loginstatus"] === "Admin"){
+		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
+	}else{
+		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
+	}
+	echo'
 		<div class="loginbox">';
-			session_start();
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
@@ -81,18 +88,68 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 	$result = $conn->query($sql);
 }
 echo'
-<div id="hometopbox">
-	<h2>Best Sellers</h2>
-	<img src="pic/hushtail.png" width="342" height="344" id="homebigpic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-	<img src="pic/hushtail.png" width="170" height="170" class="homepic">
-</div>';
+
+<div class="slideshow-container">
+
+  <!-- Full-width images with number and caption text -->
+  <div class="mySlides fade">
+    <img src="pic/homeslide1.jpg" width="1000" height="400">
+  </div>
+
+  <div class="mySlides fade">
+  
+    <img src="pic/homeslide2.png" width="1000" height="400">
+    <div class="text"><a  href="">Become a Buyer!</a></div>
+  </div>
+
+  <div class="mySlides fade">
+    
+    <img src="pic/homeslide3.jpg" width="1000" height="400">
+    <div class="text"><a  href="">Become a Seller!</a></div>
+  </div>
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+';
 echo'<div class="homeboxes">
 		<div id="hometopmenu">
 			<h2>Popular Items</h2>
@@ -123,5 +180,22 @@ if ($result->num_rows > 0) {
 $conn->close();
 		
 echo'</div></div>
+<div id="homebestmenu">
+<h2 id="sellhead">Top Entrepeneurs</h2>
+</div>
+<div id="hometopbox">
+	<img src="pic/hushtail.png" width="350" height="400" id="homebigpic">
+	<img src="pic/hushtail.png" width="200" height="180" class="homepic" id="home2pic">
+	<img src="pic/hushtail.png" width="200" height="180" class="homepic" id="home3pic">
+</div>
+<div id="homephrasebox">
+		<p>You Had Ideas,<br><br>
+		you Innovated,<br><br>
+		you Created,<br><br>
+		And Now....<br><br>
+		You have made it to the top<br><br>
+		And Let The World Know Your Craft</p>
+	</div>
+
 </body>
 </html>';  ?>

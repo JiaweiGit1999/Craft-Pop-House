@@ -17,11 +17,17 @@ if(isset($_SESSION["sellerproductid"])){
 
 <header>
 	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+	<div id="topheadnav">';
+	if($_SESSION["loginstatus"] === "Seller"){
+		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
+	}
+	else if($_SESSION["loginstatus"] === "Admin"){
+		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
+	}else{
+		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
+	}
+	echo'
 		<div class="loginbox">';
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
@@ -58,20 +64,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE productid = ".$pid;
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        if($row["productid"] == 2){
-			$img = $row["img"];
-			$name = $row["name"];
-			$price = $row["price"];
-			$rating = $row["rating"];
-			$sellerid = $row["sellerid"];
-			$description = $row["description"];
-		}
+		$img = $row["img"];
+		$name = $row["name"];
+		$price = $row["price"];
+		$rating = $row["rating"];
+		$sellerid = $row["sellerid"];
+		$description = $row["description"];
     }
 } else {
     echo "0 results";
