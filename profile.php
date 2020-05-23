@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
+<script src="profile.js" ></script>
 <body>
 
 <header>
@@ -68,6 +69,7 @@ echo'<div id="profiledisplay"><div id="profilebox">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+		$oldpass = $row["password"];
         echo ' 
 		<div id="edit">
 			<input type="button" name="edit" value="Edit" id="editprofile" onclick="DisplayProfileForm()"></input>
@@ -76,33 +78,39 @@ if ($result->num_rows > 0) {
 			<p class="Email: ">Email: ' . $row["email"] . '</p>
 			<p class="Address: ">Address: ' . $row["address"] . '</p>
 		</div>
-		<form method="POST" action="" id="save">
-			<input type="submit" name="save" value="Save" id="editprofile" onclick="DisplayProfileInfo()"></input>
+		<form method="POST" action="" id="save"  onsubmit="return CheckProfileInfo()" name="editform">
+			<input type="submit" name="save" value="Save" id="editprofile"></input>
+			<input type="button" name="button" value="Cancel" id="Cancel" onclick="DisplayProfileInfo()"></input>
 			<img src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
-			<p class="Username:">Username: <input type="text" value=' . $row["username"] . '></input></p>
-			<p class="Email: ">Email: <input type="text" value=' . $row["email"] . '></input></p>
-			<p class="Address: ">Address: <input type="text" value=' . $row["address"] . '></input></p>
+			<p class="Username">Username: <input type="text" name="editusername" value=' . $row["username"] . ' required></input></p>
+			<p id="userpass">'.$oldpass.'</p>
+			<p class="oldpass">Old Password: <input type="text" name="editoldpass" id = "oldpass" required></input></p>
+			<p class="newpass">New Password: <input type="text" name="editnewpass" id = "newpass" required></input></p>
+			<p class="Email">Email: <input type="text" name="editemail" value=' . $row["email"] . ' requiredrequired></input></p>
+			<p class="Address">Address: <input type="text" name="editaddress" value=' . $row["address"] . ' required></input></p>
 		<form>
 	';
     }
 } else {
     echo "0 results";
 }
-$conn->close();
 		
 echo'</div></div>
 </body>
-<script>
-function DisplayProfileForm() {
-  var x = document.getElementById("edit");
-  var y = document.getElementById("save");
-  x.style.display = "none";
-  y.style.display = "contents";
+</html>';  
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if($_POST["editoldpass"] == $oldpass){
+		$sql = 'UPDATE users 
+		SET username = "'.$_POST["editusername"].'"
+		,password = "'.$_POST["editnewpass"].'"
+		,email = "'.$_POST["editemail"].'"
+		,address = "'.$_POST["editaddress"].'"
+		Where id = '.$userid;
+		if ($conn->query($sql) === TRUE) {
+			print_r ("Record updated successfully");
+		} else {
+			print_r( "Error updating record: " . $conn->error);
+		}
+	}
 }
-
-function DisplayProfileInfo() {
-  document.getElementById("save").style.display = "none";
-  document.getElementById("edit").style.display = "contents";
-}
-</script>
-</html>';  ?>
+$conn->close();?>

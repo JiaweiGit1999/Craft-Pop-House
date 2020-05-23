@@ -76,8 +76,18 @@ header{
     float: right;
     border: 0;
     background-color: orange;
+	margin-left:4px;
+}
+#Cancel{
+	padding: 1%;
+    float: right;
+    border: 0;
+    background-color: #D8D8D5;
 }
 #save{
+	display:none;
+}
+#userpass{
 	display:none;
 }
 #homeproductdisplay{
