@@ -24,18 +24,22 @@ button#search_button {
 }
 #header-content{
 	margin: 0 auto;
-	padding: 40px 200px;
+	padding-top: 10px;
+	padding-right:200px;
+	padding-left: 40px;
 	height:110px;
 }
 #website-logo{
 	float: left;
 	margin-top: 15px;
 }
-
+#logo{
+	width:200px;
+}
 header{
 	background-color:orange;
 	width: 100%;
-	height: 150px;
+	height: 110px;
 	position: sticky;
 }
 
@@ -72,6 +76,19 @@ header{
     float: right;
     border: 0;
     background-color: orange;
+	margin-left:4px;
+}
+#Cancel{
+	padding: 1%;
+    float: right;
+    border: 0;
+    background-color: #D8D8D5;
+}
+#save{
+	display:none;
+}
+#userpass{
+	display:none;
 }
 #homeproductdisplay{
 	width: 100%;
@@ -119,7 +136,6 @@ header{
 }
 #sellersidenav{
 	background-color:white;
-	height: 160px;
 	margin:2%;
 	float:left;
 	display:inline;
@@ -128,7 +144,22 @@ header{
 	width: 12%;
 	clear: both;
 }
-
+#sellersidenav a{
+	color: black;
+	text-decoration:none;
+}
+#sellersidenav a:link{
+	color: black;
+	text-decoration:none;
+}
+#sellersidenav a:hover{
+	background-color:#CECDC9;
+	color:white;
+}
+#sellersidenav a:visited{
+	color: black;
+	text-decoration:none;
+}
 #buyersidenav{
 	background-color:white;
 	height: 40%;
@@ -151,7 +182,15 @@ header{
 	float: right;
 	text-align: right;
 }
-
+#addproductsform{
+	width:35%;
+	display:block;
+}
+#addproductsform label{
+	float:left;
+	display:inline-block;
+	width:200px;
+}
 #buyermenuform{
 	width:100%;
 	float: right;
@@ -201,6 +240,12 @@ header{
 #loginform .logininput{
 	width:90%;
 }
+#loginform .radiologininput{
+	width:auto;
+	margin-left:5%;
+	margin-top:5%;
+	margin-bottom:5%;
+}
 #login{
 	width: 90%;
     margin: 5%;
@@ -241,21 +286,85 @@ form{
 	margin-top:3%;
 }
 #hometopmenu{
-	width: 98%;
+	border-bottom: 2px solid #CECDC9;
+    width: 100%;
+    background-color: white;
+    display: inline-block;
+    padding: 1%;
+}
+#homebestmenu{
+	width: 100%;
     background-color: #CECDC9;
     display: inline-block;
     padding: 1%;
 }
 #hometopbox{
-	height: 400px;
+	height: 500px;
     margin-left: 3%;
-    overflow: hidden;
-    width: 90%;
+    overflow: visible;
+    width: 93%;
+}
+#homebigpic{
+	position: relative;
+    top: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+	
+}
+#home2pic{
+	position: relative;
+    top: 0px;
+    left: 70px;
+    right: 400px;
+    animation: fadeInAnimationTop ease 3s;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+#home3pic{
+	position: relative;
+    bottom: 0px;
+    left: 473px;
+    animation: fadeInAnimationBot ease 3s;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+@keyframes fadeInAnimationBot { 
+  0% { 
+        opacity: 0; 
+		bottom:-245px;
+     } 
+  100% { 
+        opacity: 1;
+		bottom: 125px;
+    } 
+}
+@keyframes fadeInAnimationTop { 
+  0% { 
+        opacity: 0; 
+		top:-350px;
+     } 
+  100% { 
+        opacity: 1;
+		top: -181px;
+    } 
 }
 
-#homebigpic{
-	float: left;
-}
+@keyframes fadeInAnimation { 
+  0% { 
+        opacity: 0; 
+		left:0px;
+     } 
+  100% { 
+        opacity: 1;
+		left: 100px;
+    } 
+} 
 .productcolumn{
 	width: 100px;
 	height: 220px;
@@ -329,10 +438,16 @@ form{
 	width: 50px;
 }
 
-a:link{
+#topheadnav a:link{
 	text-decoration:none;
+	color:white;
 }
-
+#topheadnav a:hover{
+	text-decoration:underline;
+}
+#topheadnav a:visited{
+	color:white;
+}
 html{
 	height:auto;
 }
@@ -340,6 +455,7 @@ body{
 	margin: 0;
 	background-color: #E4E3DF;
 	height:100%;
+	padding-bottom: 20px;
 }
 
 /* CSS for the Filters */
@@ -352,27 +468,39 @@ body{
 	display: block;
 }
 .homeproductcolumn{
-    width: 100px;
+width: 130px;
     height: 200px;
-    margin: 1% 0 1% 1%;
     padding: 1%;
     border: 1px solid #CECDC9;
     float: left;
     display: inline;
     overflow: hidden;
-    background-color: #E4E3DF;
+    background-color: white;
 }
 .homeboxes{
 	display: inline-table;
-    border: 3px solid #CECDC9;
-    width: 91%;
-    margin-left: 3%;
-    margin-top: 8%;
-    margin-bottom: 10%;
+    width: 100%;
+    margin-top: 3%;
+    margin-bottom: 5%;
+
 }
 .homepic{
-	margin-left:2%;
+	margin-left:5%;
+	animation: fadeInAnimationSmall ease 3s; 
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-iteration-count: 1; 
+    animation-fill-mode: forwards; 
 }
+@keyframes fadeInAnimationSmall { 
+  0% { 
+        opacity: 0;
+		top:0px;
+     } 
+  100% { 
+        opacity: 1;
+		top:250px;
+    } 
+} 
 button.filter_btn {
   border: none;
   outline: none;
@@ -404,4 +532,119 @@ h1{
 	float: right;
 	clear: right;
 	margin-top:15px;
+}
+/*Testing Slide*/
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  margin-top:15px;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+.mySlides img{
+  box-shadow: 10px 10px grey;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: black;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+.text a:link{
+	color:black;
+	text-decoration:none;
+}
+.text a:hover{
+	background-color:grey;
+	color:white;
+}
+.text a:visited{
+	color:black;
+	text-decoration:none;
+}
+.text a{
+	width: 20px;
+	background-color:orange;
+	padding:12px;
+	font-size: 15px;
+}
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }
