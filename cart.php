@@ -163,7 +163,11 @@ if(isset($_SESSION["cart_item"])){
 		<td></td>
 		</tr>
 		</tbody>
-		</table>';
+		</table>
+		<form action="checkout.php">
+			<input type="hidden" name="total_price" value="'.number_format($total_price, 2).'" />
+			<input type="submit" name="Checkout" value="Checkout" id="checkout-button"/>
+		</form>';
 	} else {
 	echo '<div class="no-records">Your Cart is Empty</div>';
 	}
