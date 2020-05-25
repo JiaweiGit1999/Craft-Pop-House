@@ -1,36 +1,4 @@
-<?php echo '
-<!DOCTYPE html>
-<html>
-<title>Craft Pop House</title>
-<meta charset="UTF-8">
-
-<link rel="stylesheet" type="text/css"href="buyingpage.css">
-<script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
-<body>
-
-<header>
-	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
-		<div class="loginbox">
-			<a href="login.php" name ="login" class="loginbutton">Login</a>
-		</div>
-	</div>
-		<div id="website-logo">
-			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
-		</div>
-		<div id="shopping-cart-button">
-			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\'login.php\'"/>
-		</div>
-	<form action="buyingpage.php">
-		<label for="searchbar"></label>
-		<input type="text" id="searchbar" name="searchbar"/>
-		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
-	</form>
-	</div>
-	
-</header>
-<h1>Login Page</h1>';
+<?php 
 
 Function connect(){
 	$servername = "localhost";
@@ -80,23 +48,13 @@ if ( isset( $_REQUEST['searchbar'] ) ) {
 }
 
 		
-echo'<form id="loginform" method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
-	<label for="username">Username: </label><br>
-	<input type="text" name="username" class="logininput"><br><br>
-	<label for="password">Password: </label><br>
-	<input type="password" name="password" class="logininput"><br>
-	<a href="forgot.php" class="forgot">forgot password?</a>
-	<input type="submit" value="Login" id="login">
-	<a href="register.php" id="register">Register</a>
-</form>
-</body>
-</html>';  
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	test_input($_POST["username"],$_POST["password"]);
+	test_input($_POST["email"]);
 }
 
-function test_input($username,$password) {
+function test_input($username,$password, $email) {
 	$match = false;
 	$username = trim($username);
 	$password = trim($password);
@@ -120,4 +78,74 @@ function test_input($username,$password) {
 		header("refresh: 2; url=homepage.php");
 		
 	}
-}?>
+    
+    
+    $email = trim($email);
+	$conn = connect();
+	$sql = "SELECT email FROM users";
+	$result = $conn->query($sql1`);
+
+    
+    $msg ="";
+    if ($result->num_rows > 0) {
+    
+        $msg = "Please check your email";
+        
+        
+        //send email
+        
+    }else{
+        header("refresh: 2; url=register.php");
+        $msg = "Please Register";
+    }
+    
+}
+
+?>
+
+
+
+<!DOCTYPE html>
+<html>
+<title>Craft Pop House</title>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css"href="buyingpage.css">
+<script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
+<body>
+
+<header>
+	<div id="header-content">
+	<div id="topheadnav">
+		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<div class="loginbox">
+			<a href="login.php" name ="login" class="loginbutton">Log in</a>
+		</div>
+	</div>
+		<div id="website-logo">
+			<img src="pic/logo.png" alt="logo" id="logo" onclick="location.href=\'homepage.php\'">
+		</div>
+		<div id="shopping-cart-button">
+			<img src="pic/shopping-cart-solid.svg" height="50" width="50" onclick="location.href=\'login.php\'"/>
+		</div>
+	<form action="buyingpage.php">
+		<label for="searchbar"></label>
+		<input type="text" id="searchbar" name="searchbar"/>
+		<button id="search_button" class="search" type="submit"><i class="fas fa-search"> Search</i></button>
+	</form>
+	</div>
+	
+</header>
+<h1>Forgot Password Page</h1>
+
+<form id="loginform" method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
+	<label for="email">Email: </label><br>
+	<input type="email" name="email" class="logininput"><br><br>
+	
+	 <input type="submit" value="Forgot Password?" name="login" id="login">
+  
+</form>
+   
+	<a href="register.php" id="register">Register</a>
+</body>
+</html>
