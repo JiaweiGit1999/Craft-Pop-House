@@ -11,7 +11,7 @@
 <header>
 	<div id="header-content">
 	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<a href="register.php" id="sellingcentre">Become a Seller</a>
 		<div class="loginbox">
 			<a href="login.php" class="loginbutton">Login</a>
 		</div>

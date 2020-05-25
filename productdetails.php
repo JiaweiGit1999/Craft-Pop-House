@@ -18,10 +18,10 @@ if(isset($_SESSION["sellerproductid"])){
 <header>
 	<div id="header-content">
 	<div id="topheadnav">';
-	if($_SESSION["loginstatus"] === "Seller"){
+	if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Seller"){
 		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
 	}
-	else if($_SESSION["loginstatus"] === "Admin"){
+	else if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Admin"){
 		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
 	}else{
 		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
@@ -88,35 +88,83 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $seller = $row["name"];
+		$usericon = $row["backgroundurl"];
     }
 } else {
     echo "0 results";
 }
-$conn->close();
 $count=1;
 echo'
 	<div id="outsidebox">
 		<div id="productdetailwindow">
 			<img src= '.$img.' id="detailimg">
 		</div>
-		<div id="detailsinfo">
-			<div>'.$name.'</div>
-			<div class="stargroup">';
+		<div id="productdetails"><b>'.$name.'</b>
+		<div class="stargroup">';
 			while($count <= 5){
 				if($count <= $rating){
-					echo'<img src="pic/starscolor.png" alt="starslogo" class="starslogodetails">';
+					echo'<img src="pic/starscolor(1).png" alt="starslogo" class="starslogodetails">';
 				}else{
 					echo'<img src="pic/stars.png" alt="starslogo" class="starslogodetails">';
 				}
 				
 				$count = $count +1;
 			}
-			echo'</div>
+			echo'   | Rating: '.$rating.'</div></div>
+		<div id="detailsinfo">
 			<div id="detailsprice"> RM'.$price.'</div>
-			<div>Seller: '.$seller.'</div>
-			<div>Description: '.$description.'</div>
+			
 		</div>
+	</div>
+	<div id="outsidebox">
+		<img src='.$usericon.' width=100 height=100></img>
+		<div>'.$seller.'</div>
+		<div>Description: '.$description.'</div>
+	</div>
+	<div id="outsidebox">
+		<h2>Product Reviews</h2>
+		';
+		$sql = "SELECT * FROM comments WHERE productid =".$pid;
+		$result = $conn->query($sql);
+		$commentuserid = [];
+		$comment = [];
+		$commentdate = [];
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				array_push($commentuserid,$row["userid"]);
+				array_push($comment,$row["comment"]);
+				array_push($commentdate,$row["date_of_comment"]);
+			}
+		} else {
+			echo "0 results";
+		}
+		$i = 0;
+		while($i < count($commentuserid)){
+			$sql = "SELECT * FROM users WHERE id =".$commentuserid[$i];
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					$commentusername = $row["username"];
+					$commentusericon = $row["usericon"];
+					echo'<div>
+						<img src="'.$commentusericon.'" width=100 height=100>
+						<p>'.$commentusername.'</p>
+						<p>'.$commentdate[$i].'</p>
+						<p>'.$comment[$i].'</p>
+					</div>';
+				}
+			} else {
+				echo "0 results";
+			}
+			$i++;
+		}
+		
+		
+		echo'
 	</div>
 </body>
 </html>';
+$conn->close();
 ?>
