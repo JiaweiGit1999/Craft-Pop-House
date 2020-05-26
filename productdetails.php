@@ -109,6 +109,33 @@ echo'
 			<div id="detailsprice"> RM'.$price.'</div>
 			<div>Seller: '.$seller.'</div>
 			<div>Description: '.$description.'</div>
+			<div class="paypal">
+<script src="https://www.paypal.com/sdk/js?client-id=AfwbD51iZ2J9Lx3cgGM5ZuFahQ6UkQMOA3MmNZ89eD0WBZC_g8KYqT60uBjDvSolIyHm40RLoaMUfbdN&currency=MYR">
+	</script>
+  
+  <script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '.$price.'
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+	  
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+        alert(\'Transaction completed by \' + details.payer.name.given_name);
+		window.location.href = \'checkout-success.php\';
+      });
+    }
+  }).render(\'.paypal\');
+  </script>
+</div>
 		</div>
 	</div>
 </body>
