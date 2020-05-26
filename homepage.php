@@ -11,10 +11,12 @@ echo '
 	<div id="header-content">
 	<div id="topheadnav">';
 	session_start();
+
 	if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Seller"){
 		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
 	}
 	else if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Admin"){
+
 		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
 	}else{
 		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';

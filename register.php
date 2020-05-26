@@ -14,6 +14,7 @@ echo '
 
 <header>
 	<div id="header-content">
+
 	<div id="topheadnav">';
 	session_start();
 	if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Seller"){
@@ -26,6 +27,7 @@ echo '
 	}
 	echo'
 		<div class="loginbox">';
+
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
