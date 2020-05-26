@@ -14,7 +14,8 @@ email VARCHAR(50),
 address VARCHAR(30),
 usericon VARCHAR(500),
 status CHAR(7),
-CHECK ((status='buyer')OR (status='seller'))
+
+CHECK ((status='Buyer')OR (status='Seller')OR (status = 'Admin'))
 );
 
 CREATE TABLE Seller (
@@ -76,13 +77,31 @@ FOREIGN KEY (productid,orderid) REFERENCES products_orders(productid,orderid)
 );
 
 insert INTO users (id,username,password,email,address,usericon,status)
-VALUES(1,'admin','admin','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"seller");
+
+VALUES(1,'admin','admin','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"Admin");
 
 insert INTO users (id,username,password,email,address,usericon,status)
-VALUES(2,'buyer','buyer','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"buyer");
+VALUES(2,'buyer','buyer','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"Buyer");
+
+insert INTO users (id,username,password,email,address,usericon,status)
+VALUES(3,'seller','seller','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"Seller");
+
 
 insert INTO seller (id,sales,name,backgroundurl)
 VALUES(1,48.90,'admin','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png');
+
+insert INTO seller (id,sales,name,backgroundurl)
+VALUES(3,48.90,'seller','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png');
+
+insert INTO buyer (id,name)
+VALUES(2,'buyer');
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('hushtail1',1,12.90,'monarch hushtail black and yellow',"Chair",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/51/Hushtail_Monarch_Tier_3.png/revision/latest?cb=20190807005838',2);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('hushtail2',1,13.90,'untamed hushtail red orange and yellow',"Table",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/4/47/Hushtail_Untamed_Tier_3.png/revision/latest?cb=20190807005840',3);
+
 
 insert INTO buyer (id,name)
 VALUES(2,'buyer');
@@ -121,7 +140,7 @@ INSERT INTO products_orders(productid,orderid)
 VALUES (3,1);
 
 INSERT INTO products_orders(productid,orderid)
-VALUES (2,3);
+
 
 insert INTO history (sellerid,buyerid,productid,orderid)
 VALUES(1,2,1,1);
