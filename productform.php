@@ -16,11 +16,17 @@ echo '
 
 <header>
 	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+	<div id="topheadnav">';
+	if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Seller"){
+		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
+	}
+	else if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Admin"){
+		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
+	}else{
+		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
+	}
+	echo'
 		<div class="loginbox">';
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";

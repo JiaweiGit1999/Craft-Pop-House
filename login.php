@@ -11,7 +11,7 @@
 <header>
 	<div id="header-content">
 	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+		<a href="register.php" id="sellingcentre">Become a Seller</a>
 		<div class="loginbox">
 			<a href="login.php" class="loginbutton">Login</a>
 		</div>
@@ -98,16 +98,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function test_input($username,$password) {
 	$match = false;
+	$id = 0;
 	$username = trim($username);
 	$password = trim($password);
 	$conn = connect();
-	$sql = "SELECT username, password FROM users";
+	$sql = "SELECT * FROM users";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
 			if($row["username"]==$username || $row["password"]==$password){
 				$match = true;
+				$id = $row["id"];
+				$status = $row["status"];
 			}
 		}
 	} else {
@@ -117,7 +120,14 @@ function test_input($username,$password) {
 		session_start();
 		$_SESSION["loggedin"] = true;
 		$_SESSION["username"] = $_POST["username"];
-		header("refresh: 2; url=homepage.php");
+		$_SESSION["loginid"] = $id;
+		$_SESSION["loginstatus"] = $status;
+		if($status == "Seller"){
+			header("refresh: 2; url=sellingpage.php");
+		}else{
+			header("refresh: 2; url=homepage.php");
+		}
+		
 		
 	}
 }?>

@@ -1,8 +1,10 @@
+Drop Table if EXISTS Comments;
 Drop Table if EXISTS history;
+Drop Table if EXISTS products_orders;
 Drop Table if EXISTS orders;
 Drop Table if EXISTS products;
-Drop Table if EXISTS seller;
 Drop Table if EXISTS buyer;
+Drop Table if EXISTS seller;
 Drop Table if EXISTS users;
 
 CREATE TABLE Users (
@@ -11,7 +13,9 @@ username VARCHAR(30) NOT NULL,
 password VARCHAR(30) NOT NULL,
 email VARCHAR(50),
 address VARCHAR(30),
-usericon VARCHAR(500)
+usericon VARCHAR(500),
+status CHAR(7),
+CHECK ((status='Buyer')OR (status='Seller')OR (status = 'Admin'))
 );
 
 CREATE TABLE Seller (
@@ -30,10 +34,12 @@ FOREIGN KEY (id) REFERENCES Users(id)
 
 CREATE TABLE Products (
 productid INT(6) AUTO_INCREMENT PRIMARY KEY,
+product_status VARCHAR(30) DEFAULT "active",
 name VARCHAR(30),
 sellerid INT(6),
 price decimal(7,2),
-description VARCHAR(30),
+description VARCHAR(300),
+category VARCHAR(15),
 quantity INT(6),
 img VARCHAR(500),
 rating decimal(2,1),
@@ -45,12 +51,18 @@ userid INT(6),
 productid INT(6),
 status VARCHAR(30),
 quantity int,
-orderid INT(6),
-amount INT(6),
+orderid INT(6) auto_increment ,
 date DateTime,
+PRIMARY KEY(orderid),
+FOREIGN KEY (userid) REFERENCES Buyer(id)   
+);
+
+CREATE TABLE products_orders (
+productid INT(6),
+orderid INT(6),
 PRIMARY KEY(productid,orderid),
 FOREIGN KEY (productid) REFERENCES Products(productid),
-FOREIGN KEY (userid) REFERENCES Buyer(id)   
+FOREIGN KEY (orderid) REFERENCES Orders(orderid)
 );
 
 CREATE TABLE History (
@@ -60,35 +72,118 @@ productid INT(6),
 orderid INT(6),
 FOREIGN KEY (sellerid) REFERENCES Seller(id),
 FOREIGN KEY (buyerid) REFERENCES Buyer(id),
-FOREIGN KEY (productid,orderid) REFERENCES Orders(productid,orderid)
+FOREIGN KEY (productid,orderid) REFERENCES products_orders(productid,orderid)
 );
 
-insert INTO users (id,username,password,email,address,usericon)
-VALUES(1,'admin','admin','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png');
+Create Table Comments(
+	commentid INT(6) AUTO_INCREMENT,
+    productid INT(6),
+    comment varchar(500),
+    date_of_comment datetime,
+    userid INT(6),
+    PRIMARY KEY(commentid),
+    FOREIGN key (userid) REFERENCES Buyer(id)
+);
+
+insert INTO users (id,username,password,email,address,usericon,status)
+VALUES(1,'admin','admin','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"Admin");
+
+insert INTO users (id,username,password,email,address,usericon,status)
+VALUES(2,'buyer','buyer','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"Buyer");
+
+insert INTO users (id,username,password,email,address,usericon,status)
+VALUES(3,'seller','seller','jtang0308@gmail.com','testaddress','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png',"Seller");
 
 insert INTO seller (id,sales,name,backgroundurl)
 VALUES(1,48.90,'admin','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png');
 
+insert INTO seller (id,sales,name,backgroundurl)
+VALUES(3,48.90,'seller','https://pbs.twimg.com/media/EDEZzXmXYAAI91v.png');
+
 insert INTO buyer (id,name)
 VALUES(1,'admin');
 
-INSERT INTO products(productid,name,sellerid,price,description,quantity,img,rating)
-VALUES (1,'hushtail1',1,12.90,'monarch hushtail black and yellow',1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/51/Hushtail_Monarch_Tier_3.png/revision/latest?cb=20190807005838',2);
+insert INTO buyer (id,name)
+VALUES(2,'buyer');
 
-INSERT INTO products(productid,name,sellerid,price,description,quantity,img,rating)
-VALUES (2,'hushtail2',1,13.90,'untamed hushtail red orange and yellow',1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/4/47/Hushtail_Untamed_Tier_3.png/revision/latest?cb=20190807005840',3);
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('hushtail1',1,12.90,'monarch hushtail black and yellow',"Chair",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/51/Hushtail_Monarch_Tier_3.png/revision/latest?cb=20190807005838',2);
 
-INSERT INTO products(productid,name,sellerid,price,description,quantity,img,rating)
-VALUES (3,'hushtail3',1,14.90,'Fae hushtail white and green',1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/2/21/Hushtail_Fae_Tier_3.png/revision/latest?cb=20190807005630',4.5);
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('hushtail2',1,13.90,'untamed hushtail red orange and yellow',"Table",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/4/47/Hushtail_Untamed_Tier_3.png/revision/latest?cb=20190807005840',3);
 
-INSERT INTO orders(userid,productid,status,quantity,orderid,date)
-VALUES (1,1,'preparing',1,1,'2020-01-01 10:2:10');
-
-INSERT INTO orders(userid,productid,status,quantity,orderid,date)
-VALUES (1,2,'on the way',1,2,'2020-01-02 10:3:10');
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('hushtail3',1,14.90,'Fae hushtail white and green',"Decoration",1,'https://vignette.wikia.nocookie.net/leagueoflegends/images/2/21/Hushtail_Fae_Tier_3.png/revision/latest?cb=20190807005630',4.5);
 
 INSERT INTO orders(userid,productid,status,quantity,orderid,date)
-VALUES (1,3,'arrived',1,3,'2020-01-03 10:4:10');
+VALUES (2,1,'preparing',1,1,'2020-01-01 10:2:10');
+
+INSERT INTO orders(userid,productid,status,quantity,orderid,date)
+VALUES (2,2,'preparing',1,2,'2020-01-01 10:2:10');
+
+INSERT INTO orders(userid,productid,status,quantity,orderid,date)
+VALUES (2,3,'preparing',1,3,'2020-01-01 10:2:10');
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (1,1);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (1,2);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (1,3);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (2,1);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (3,1);
+
+INSERT INTO products_orders(productid,orderid)
+VALUES (2,3);
 
 insert INTO history (sellerid,buyerid,productid,orderid)
-VALUES(1,1,1,1);
+VALUES(1,2,1,1);
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('Wooden Table',1,12.90,'big wooden table',"Table",1,'pic/01.jpg',2);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('White Table',1,13.90,'white table',"Table",1,'pic/02.jpg',3);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('rattan set',1,14.90,'rattan table chair set',"Table",1,'pic/03.jpg',4.5);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('stone set',1,12.90,'stone table chair set',"Table",1,'pic/04.jpg',2);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('Sabah Crafts',1,12.90,'Sabah Craft Accessories And Costumes',"Accessories",1,'pic/05.jfif',2);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('butterfly decor',1,12.90,'butterfly made of paper',"Decoration",1,'pic/06.jpg',2);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('Flower',1,12.90,'flower made of paper',"Decoration",1,'pic/07.jpg',2);
+
+INSERT INTO products(name,sellerid,price,description,category,quantity,img,rating)
+VALUES ('Paper Decor',1,12.90,'20 paper decor crafts',"Decoration",1,'pic/08.jpg',2);
+
+
+
+insert into Comments(productid,comment,date_of_comment,userid)
+values(1,"good product","2019-10-10",1);
+
+insert into Comments(productid,comment,date_of_comment,userid)
+values(2,"great product","2019-10-9",1);
+
+insert into Comments(productid,comment,date_of_comment,userid)
+values(3,"amazing product","2019-10-8",1);
+
+insert into Comments(productid,comment,date_of_comment,userid)
+values(1,"good product","2019-10-10",2);
+
+insert into Comments(productid,comment,date_of_comment,userid)
+values(2,"great product","2019-10-9",2);
+
+insert into Comments(productid,comment,date_of_comment,userid)
+values(3,"amazing product","2019-10-8",2)

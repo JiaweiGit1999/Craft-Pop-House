@@ -11,12 +11,18 @@
 
 <header>
 	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+	<div id="topheadnav">';
+	session_start();
+	if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Seller"){
+		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
+	}
+	else if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Admin"){
+		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
+	}else{
+		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
+	}
+	echo'
 		<div class="loginbox">';
-			session_start();
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
@@ -77,7 +83,7 @@ echo'<div id="productdisplay">';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<a href="?pid='.$row["productid"].'"><div class="productcolumn"> 
+        echo '<a class="productcolumn" href="?pid='.$row["productid"].'"> 
 		<img src=' . $row["img"]. ' alt="testing" class="productimg" height="100" width="100">
 		<p class="productname">' . $row["name"] . '</p>
 		<p class="price"> RM' . $row["price"] . '</p>
@@ -92,7 +98,7 @@ if ($result->num_rows > 0) {
           <input type="hidden" name="ProductID" value="'.$row["productid"].'" />
           <input type="submit" id="submit" name="Delete" value="Delete" class="remove"/>
         </form>
-	</div></a>';
+	</a>';
     }
 } else {
     echo "0 results";
