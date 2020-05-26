@@ -17,11 +17,17 @@ if(isset($_SESSION["sellerproductid"])){
 
 <header>
 	<div id="header-content">
-	<div id="topheadnav">
-		<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>
+	<div id="topheadnav">';
+	if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Seller"){
+		echo '<a href="sellingpage.php" id="sellingcentre">Seller Centre</a>';
+	}
+	else if(isset($_SESSION["loginstatus"]) && $_SESSION["loginstatus"] === "Admin"){
+		echo '<a href="sellingpage.php" id="sellingcentre"> Seller Centre </a><a href="register.php" id="sellingcentre"> Become a Seller </a>';
+	}else{
+		echo '<a href="register.php" id="sellingcentre">Become a Seller</a>';
+	}
+	echo'
 		<div class="loginbox">';
- 
-	// Check if the user is already logged in, if yes then redirect him to welcome page
 	if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 		echo'<a href="profile.php" class="loginbutton">'.$_SESSION["username"].'</a><a href="logout.php" class="loginbutton"> | logout</a>';
 		$website="cart.php";
@@ -82,35 +88,110 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $seller = $row["name"];
+		$usericon = $row["backgroundurl"];
     }
 } else {
     echo "0 results";
 }
-$conn->close();
+$countproducts = 0;
+$sql = "SELECT * FROM products WHERE sellerid = $sellerid.";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $countproducts++;
+    }
+} else {
+    echo "0 results";
+}
+
 $count=1;
 echo'
 	<div id="outsidebox">
 		<div id="productdetailwindow">
 			<img src= '.$img.' id="detailimg">
 		</div>
-		<div id="detailsinfo">
-			<div>'.$name.'</div>
-			<div class="stargroup">';
+		<div id="productdetails"><b>'.$name.'</b>
+		<div class="stargroup">';
 			while($count <= 5){
 				if($count <= $rating){
-					echo'<img src="pic/starscolor.png" alt="starslogo" class="starslogodetails">';
+					echo'<img src="pic/starscolor(1).png" alt="starslogo" class="starslogodetails">';
 				}else{
 					echo'<img src="pic/stars.png" alt="starslogo" class="starslogodetails">';
 				}
 				
 				$count = $count +1;
 			}
-			echo'</div>
+			echo'   | Rating: '.$rating.'</div></div>
+		<div id="detailsinfo">
 			<div id="detailsprice"> RM'.$price.'</div>
-			<div>Seller: '.$seller.'</div>
-			<div>Description: '.$description.'</div>
 		</div>
+		<form id="formbuydetails">
+			<label for="name" id="quantitylabel">Quantity: </label>
+			<input type="number" name="quantity" min="1" id="quantity"/>
+			<input type="button" name="AddToCart" value="Add To Cart" id ="addtocart"></input>
+		</form>
+	</div>
+	<div id="outsidebox">
+		<img src='.$usericon.' width=100 height=100 id="sellerproductimg"></img>
+		<div class="sellerproductdetails">
+			<div id="productsellername">'.$seller.'</div>
+			<input type="button" value="Chat Now" id="chatnow"></input>
+		</div>
+		<div class="sellerproductdetails" id ="specificdetails">
+			<div>Rating: 5</div>
+			<div>Products: '.$countproducts.'</div>
+		</div>
+	</div>
+	<div id="outsidebox">
+		<h2>Product Description</h2>
+		<div>Description: '.$description.'</div>
+	</div>
+	<div id="outsidebox">
+		<h2>Product Reviews</h2>
+		';
+		$sql = "SELECT * FROM comments WHERE productid =".$pid;
+		$result = $conn->query($sql);
+		$commentuserid = [];
+		$comment = [];
+		$commentdate = [];
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				array_push($commentuserid,$row["userid"]);
+				array_push($comment,$row["comment"]);
+				array_push($commentdate,$row["date_of_comment"]);
+			}
+		} else {
+			echo "0 results";
+		}
+		$i = 0;
+		while($i < count($commentuserid)){
+			$sql = "SELECT * FROM users WHERE id =".$commentuserid[$i];
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					$commentusername = $row["username"];
+					$commentusericon = $row["usericon"];
+					echo'<div class="reviewbox">
+						<img src="'.$commentusericon.'" width=100 height=100 id="reviewerimg">
+						<div class="reviewuserdetails">
+							<p>'.$commentusername.'</p>
+							<p>'.$commentdate[$i].'</p>
+						</div>
+						<p class="usercomment">'.$comment[$i].'</p>
+					</div>';
+				}
+			} else {
+				echo "0 results";
+			}
+			$i++;
+		}
+		echo'
 	</div>
 </body>
 </html>';
+$conn->close();
 ?>
