@@ -93,6 +93,19 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
+$countproducts = 0;
+$sql = "SELECT * FROM products WHERE sellerid = $sellerid.";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $countproducts++;
+    }
+} else {
+    echo "0 results";
+}
+
 $count=1;
 echo'
 	<div id="outsidebox">
@@ -113,12 +126,26 @@ echo'
 			echo'   | Rating: '.$rating.'</div></div>
 		<div id="detailsinfo">
 			<div id="detailsprice"> RM'.$price.'</div>
-			
+		</div>
+		<form id="formbuydetails">
+			<label for="name" id="quantitylabel">Quantity: </label>
+			<input type="number" name="quantity" min="1" id="quantity"/>
+			<input type="button" name="AddToCart" value="Add To Cart" id ="addtocart"></input>
+		</form>
+	</div>
+	<div id="outsidebox">
+		<img src='.$usericon.' width=100 height=100 id="sellerproductimg"></img>
+		<div class="sellerproductdetails">
+			<div id="productsellername">'.$seller.'</div>
+			<input type="button" value="Chat Now" id="chatnow"></input>
+		</div>
+		<div class="sellerproductdetails" id ="specificdetails">
+			<div>Rating: 5</div>
+			<div>Products: '.$countproducts.'</div>
 		</div>
 	</div>
 	<div id="outsidebox">
-		<img src='.$usericon.' width=100 height=100></img>
-		<div>'.$seller.'</div>
+		<h2>Product Description</h2>
 		<div>Description: '.$description.'</div>
 	</div>
 	<div id="outsidebox">
@@ -148,11 +175,13 @@ echo'
 				while($row = $result->fetch_assoc()) {
 					$commentusername = $row["username"];
 					$commentusericon = $row["usericon"];
-					echo'<div>
-						<img src="'.$commentusericon.'" width=100 height=100>
-						<p>'.$commentusername.'</p>
-						<p>'.$commentdate[$i].'</p>
-						<p>'.$comment[$i].'</p>
+					echo'<div class="reviewbox">
+						<img src="'.$commentusericon.'" width=100 height=100 id="reviewerimg">
+						<div class="reviewuserdetails">
+							<p>'.$commentusername.'</p>
+							<p>'.$commentdate[$i].'</p>
+						</div>
+						<p class="usercomment">'.$comment[$i].'</p>
 					</div>';
 				}
 			} else {
@@ -160,8 +189,6 @@ echo'
 			}
 			$i++;
 		}
-		
-		
 		echo'
 	</div>
 </body>
