@@ -458,6 +458,23 @@ form{
 #specificdetails div{
 	margin-top: 9%;
 }
+#checkout-button{
+	color: orange;
+    border: 1px solid orange;
+    padding: 10px;
+    margin-top: 5px;
+    float: right;
+}
+#profileorderstable{
+	display:none;
+}
+.checkout{
+	margin-top: 5%;
+    margin-left: 4%;
+}
+.paypal{
+	width:25%;
+}
 .sellerproductdetails{
 	display:inline-block;
 	height:100px;
