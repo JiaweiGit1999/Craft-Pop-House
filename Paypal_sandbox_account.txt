@@ -1,0 +1,36 @@
+sb-uzbkg1170068@personal.example.com
+wdIf5@L)
+
+First Name:
+John
+Last Name:
+Doe
+Email ID:
+sb-uzbkg1170068@personal.example.com
+System Generated Password:
+wdIf5@L)
+Phone Number:
+3305012254
+Account Type:
+Personal
+Account ID:
+AJGBGG3MTMZC2
+Status:
+Verified
+Country:
+MY
+Notes:Bank Account
+Account Number:
+0407827300
+Routing Number:
+HBMBMYKL
+Credit Card
+Credit Card Number:
+4293128626551086
+Credit Card Type:
+VISA
+Expiration Date:
+04/2025
+PayPal
+Balance:
+5000.00 MYR
