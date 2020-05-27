@@ -23,7 +23,6 @@ echo '
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
 	<div id="header-content">
 	<div id="topheadnav">
@@ -55,7 +54,7 @@ echo '
 	
 </header>
 <section>
-<h2 class="checkout">Checkout</h2>
+<h2>Checkout</h2>
 <h3 class="checkout">Order Details</h3>
 <div id="shopping-cart">
 <table class="tbl-cart" id="checkout-table">
