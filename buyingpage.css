@@ -465,6 +465,18 @@ form{
     margin-top: 5px;
     float: right;
 }
+
+#profileorderstable{
+	display:none;
+}
+.checkout{
+	margin-top: 5%;
+    margin-left: 4%;
+}
+.paypal{
+	width:25%;
+}
+
 .sellerproductdetails{
 	display:inline-block;
 	height:100px;
