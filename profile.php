@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"href="style.css">
 <script src="profile.js" ></script>
 <script src="preview.js" ></script>
 <body>
@@ -66,9 +67,10 @@ $result = $conn->query($sql);
 
 
 echo'<div id="sellersidenav">
-		<a class="sellermenu" href="sellingpage.php">Your Profile</a>
+		<a class="sellermenu" href="profile.php">Your Profile</a>
 		<a class="sellermenu" href="sellingpage.php">Sales History</a>
 		<a class="sellermenu" href="sellingpage.php">Orders History</a>
+		<a class="sellermenu" href="javascript:DisplayOrders()">Your Orders</a>
 	</div>
 	';
 
@@ -96,14 +98,70 @@ if ($result->num_rows > 0) {
 			<p class="newpass">New Password: <input type="text" name="editnewpass" id = "newpass" required></input></p>
 			<p class="Email">Email: <input type="text" name="editemail" value=' . $row["email"] . ' requiredrequired></input></p>
 			<p class="Address">Address: <input type="text" name="editaddress" value=' . $row["address"] . ' required></input></p>
-		<form>
+		</form>
 	';
     }
 } else {
     echo "0 results";
 }
 		
-echo'</div></div>
+echo'
+<table class="tbl-cart" cellpadding="10" cellspacing="1" id="profileorderstable">
+		<tbody>
+		<tr>
+		<th style="text-align:left;">Name</th>
+		<th style="text-align:left;">Status</th>
+		<th style="text-align:right;" width="5%">Quantity</th>
+		<th style="text-align:right;" width="10%">Date</th>
+		</tr>';
+$sql = "SELECT * FROM orders Where userid = ".$userid;
+$result = $conn->query($sql);
+$countitems = 0;
+$orderdate = [];
+$orderstatus = [];
+$quantity = [];
+$productid = [];
+$orderid = [];
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+		array_push($orderdate,$row["date"]);
+		array_push($orderstatus,$row["status"]);
+		array_push($quantity,$row["quantity"]);
+        array_push($productid,$row["productid"]);
+		array_push($orderid,$row["orderid"]);
+		
+    }
+} else {
+    echo "0 results";
+}
+$i = 0;
+while($i < count($productid)){
+	$sql = "SELECT * FROM products Where productid = ".$productid[$i];
+	$result = $conn->query($sql);
+	$countitems = 0;
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			echo ' 
+		<tr>
+			<td><img src="'.$row["img"].'" class="cart-item-image" />'.$row["name"].'</td>
+			<td>'.$orderstatus[$i].'</td>
+			<td style="text-align:right;">'.$quantity[$i].'</td>
+			<td  style="text-align:right;">'.$orderdate[$i].'</td>
+		</tr>';
+	
+		}
+	} else {
+		echo "0 results";
+	}
+	$i++;
+}
+
+echo'</tr>
+		</tbody>
+		</table>
+		</div></div>
 </body>
 </html>';  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

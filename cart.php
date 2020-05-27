@@ -53,7 +53,6 @@ echo '
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
 	<div id="header-content">
 	<div id="topheadnav">

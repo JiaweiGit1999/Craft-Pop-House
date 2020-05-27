@@ -23,7 +23,6 @@ echo '
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <header>
 	<div id="header-content">
 	<div id="topheadnav">
@@ -55,7 +54,7 @@ echo '
 	
 </header>
 <section>
-<h2 class="checkout">Checkout</h2>
+<h2>Checkout</h2>
 <h3 class="checkout">Order Details</h3>
 <div id="shopping-cart">
 <table class="tbl-cart" id="checkout-table">
@@ -82,7 +81,6 @@ echo '
 		<td colspan="2" align="right">Total:</td>
 		<td align="right">'.$total_quantity.'</td>
 		<td align="right" colspan="2"><strong>RM '.number_format($total_price, 2).'</strong></td>
-		</tr>
 	</tbody>
 </table>
 <h3>Payment Options</h3>
