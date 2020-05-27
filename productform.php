@@ -105,18 +105,22 @@ if(isset($_POST['submit'])){
     $newname = $_REQUEST['name'];
 	$newprice = (float)$_REQUEST['price'];
 	$newdescription = $_REQUEST['description'];
+	$target_file = "pic/";
+	$newimg = $target_file . basename($_FILES["fileToUpload"]["name"]);
+	move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $newimg);
 	///$sql = "UPDATE products SET name=".$newname.",price=".$newprice.",description=".$newdescription."WHERE productid= 2";
-	echo $newprice;
 	$sql = 'UPDATE products
 SET 
     name = "'.$newname.'",
-    price = '.$newprice.',
-    description = "'.$newdescription.'"
+    price = '.number_format($newprice, 2).',
+    description = "'.$newdescription.'",
+	img = "'.$newimg.'"
 WHERE
     productid = '.$pid;
 	
 	if ($conn->query($sql) === TRUE) {
 		print_r ("Record updated successfully");
+		header("Refresh:2");
 	} else {
 		print_r( "Error updating record: " . $conn->error);
 	}
@@ -129,8 +133,20 @@ echo'
 	<div id="outsidebox">
 		<div id="productdetailwindow">
 			<img src= '.$img.' id="detailimg">
+			<script>
+				function readURL(input) {
+				  if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						document.getElementById("detailimg").src=e.target.result;
+					}
+					reader.readAsDataURL(input.files[0]); // convert to base64 string
+				  }
+				}
+			</script>
 		</div>
-		<form id="detailsinfo" method="post" action="">
+		<form id="detailsinfo" method="post" action="" enctype="multipart/form-data">
+			<p><input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);" required="required"/></p>
 			<label for="name"> Name:</label>
 			<input type="text" name="name"value="'.$name.'">
 			<br>

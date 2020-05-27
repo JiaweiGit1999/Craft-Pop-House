@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css"href="buyingpage.css">
 <script src="https://kit.fontawesome.com/c823101727.js" crossorigin="anonymous"></script>
 <script src="profile.js" ></script>
+<script src="preview.js" ></script>
 <body>
 
 <header>
@@ -84,10 +85,11 @@ if ($result->num_rows > 0) {
 			<p class="Email: ">Email: ' . $row["email"] . '</p>
 			<p class="Address: ">Address: ' . $row["address"] . '</p>
 		</div>
-		<form method="POST" action="" id="save"  onsubmit="return CheckProfileInfo()" name="editform">
+		<form method="POST" action="" id="save"  onsubmit="return CheckProfileInfo()" name="editform" enctype="multipart/form-data">
 			<input type="submit" name="save" value="Save" id="editprofile"></input>
 			<input type="button" name="button" value="Cancel" id="Cancel" onclick="DisplayProfileInfo()"></input>
-			<img src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
+			<img id="image" src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
+			<p><input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);"/></p>
 			<p class="Username">Username: <input type="text" name="editusername" value=' . $row["username"] . ' required></input></p>
 			<p id="userpass">'.$oldpass.'</p>
 			<p class="oldpass">Old Password: <input type="text" name="editoldpass" id = "oldpass" required></input></p>
@@ -106,14 +108,19 @@ echo'</div></div>
 </html>';  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if($_POST["editoldpass"] == $oldpass){
+		$target_dir = "pic/";
+		$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+		move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 		$sql = 'UPDATE users 
 		SET username = "'.$_POST["editusername"].'"
 		,password = "'.$_POST["editnewpass"].'"
 		,email = "'.$_POST["editemail"].'"
 		,address = "'.$_POST["editaddress"].'"
+		,usericon = "'.$target_file.'" 
 		Where id = '.$userid;
 		if ($conn->query($sql) === TRUE) {
 			print_r ("Record updated successfully");
+			header("Refresh:2");
 		} else {
 			print_r( "Error updating record: " . $conn->error);
 		}
