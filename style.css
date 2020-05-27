@@ -123,22 +123,3 @@ body {
 	clear: both;
 	margin: 38px 0px;
 }
-
-
-.checkout{
-	width: 93%;
-    margin: 20px auto;
-}
-
-.checkout_data{
-	text-align: center;
-} 
-
-#checkout-table{
-	font-size: 18px;
-}
-
-.paypal{
-	width:100%;
-	text-align: center;
-}
