@@ -8,7 +8,7 @@ switch($_GET["action"]) {
 	case "add":
 		if(!empty($_REQUEST["quantity"])) {
 			$productByproductid = $db_handle->runQuery("SELECT * FROM products WHERE productid='" . $_GET["productid"] . "'");
-			$itemArray = array($productByproductid[0]["productid"]=>array('name'=>$productByproductid[0]["name"], 'productid'=>$productByproductid[0]["productid"], 'quantity'=>$_POST["quantity"], 'price'=>$productByproductid[0]["price"], 'img'=>$productByproductid[0]["img"]));
+			$itemArray = array($productByproductid[0]["productid"]=>array('name'=>$productByproductid[0]["name"], 'productid'=>$productByproductid[0]["productid"], 'quantity'=>$_REQUEST["quantity"], 'price'=>$productByproductid[0]["price"], 'img'=>$productByproductid[0]["img"]));
 			if(!empty($_SESSION["cart_item"])) {
 				if(in_array($productByproductid[0]["productid"],array_keys($_SESSION["cart_item"]))) {
 					foreach($_SESSION["cart_item"] as $k => $v) {
