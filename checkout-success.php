@@ -58,7 +58,7 @@ echo '
 	$id = $conn->query("SELECT last_insert_id();");
 	$order_id = $id->fetch_assoc()["last_insert_id()"];
 	foreach ($_SESSION["cart_item"] as $item){
-		$conn->query("INSERT INTO products_orders(productid,orderid,quantity)VALUES(".$item["productid"].",".$order_id.",".$item["quantity"].");");
+		$conn->query("INSERT INTO products_orders(productid,orderid)VALUES(".$item["productid"].",".$order_id.");");
 	}
 	$date = new DateTime("now", new DateTimeZone('Asia/Kuching') );
 	echo'<div id="outsidebox">
