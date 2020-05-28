@@ -54,11 +54,10 @@ echo '
 		die("Connection failed: " . $conn->connect_error);
 	}
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-	$conn->query("INSERT INTO orders(userid,status,date)VALUES(".$_SESSION["loginid"].",'preparing',NOW());");
 	$id = $conn->query("SELECT last_insert_id();");
 	$order_id = $id->fetch_assoc()["last_insert_id()"];
 	foreach ($_SESSION["cart_item"] as $item){
-		$conn->query("INSERT INTO products_orders(productid,orderid)VALUES(".$item["productid"].",".$order_id.");");
+		$conn->query("INSERT INTO orders(userid,productid,status,quantity,date)VALUES(".$_SESSION["loginid"].",".$item["productid"].",'preparing',".$item["quantity"].",NOW());");
 	}
 	$date = new DateTime("now", new DateTimeZone('Asia/Kuching') );
 	echo'<div id="outsidebox">
