@@ -68,8 +68,6 @@ $result = $conn->query($sql);
 
 echo'<div id="sellersidenav">
 		<a class="sellermenu" href="profile.php">Your Profile</a>
-		<a class="sellermenu" href="sellingpage.php">Sales History</a>
-		<a class="sellermenu" href="sellingpage.php">Orders History</a>
 		<a class="sellermenu" href="javascript:DisplayOrders()">Your Orders</a>
 	</div>
 	';
