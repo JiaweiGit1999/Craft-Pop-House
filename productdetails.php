@@ -1,6 +1,47 @@
 <?php
+define('SCRIPT_DEBUG', true);
 session_start();
- 
+require_once("dbcontroller.php");
+$db_handle = new DBController();
+if(!empty($_GET["action"])) {
+switch($_GET["action"]) {
+	case "add":
+		if(!empty($_REQUEST["quantity"])) {
+			$productByproductid = $db_handle->runQuery("SELECT * FROM products WHERE productid='" . $_GET["productid"] . "'");
+			$itemArray = array($productByproductid[0]["productid"]=>array('name'=>$productByproductid[0]["name"], 'productid'=>$productByproductid[0]["productid"], 'quantity'=>$_POST["quantity"], 'price'=>$productByproductid[0]["price"], 'img'=>$productByproductid[0]["img"]));
+			if(!empty($_SESSION["cart_item"])) {
+				if(in_array($productByproductid[0]["productid"],array_keys($_SESSION["cart_item"]))) {
+					foreach($_SESSION["cart_item"] as $k => $v) {
+						if($productByproductid[0]["productid"] == $k) {
+							if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+								$_SESSION["cart_item"][$k]["quantity"] = 0;
+							}
+							$_SESSION["cart_item"][$k]["quantity"] += $_REQUEST["quantity"];
+						}
+					}
+				} else {
+					$_SESSION["cart_item"] = $_SESSION["cart_item"] + $itemArray;
+				}
+			} else {
+				$_SESSION["cart_item"] = $itemArray;
+			}
+		}
+	break;
+	case "remove":
+		if(!empty($_SESSION["cart_item"])) {
+			foreach($_SESSION["cart_item"] as $k => $v) {
+					if($_GET["productid"] == $k)
+						unset($_SESSION["cart_item"][$k]);				
+					if(empty($_SESSION["cart_item"]))
+						unset($_SESSION["cart_item"]);
+			}
+		}
+	break;
+	case "empty":
+		unset($_SESSION["cart_item"]);
+	break;	
+}
+}
 if(isset($_SESSION["sellerproductid"])){
     $pid = $_SESSION["sellerproductid"];
 }
@@ -130,7 +171,9 @@ echo'
 		<form id="formbuydetails">
 			<label for="name" id="quantitylabel">Quantity: </label>
 			<input type="number" name="quantity" min="1" id="quantity"/>
-			<input type="button" name="AddToCart" value="Add To Cart" id ="addtocart"></input>
+			<input type="hidden" name="productid" value="'.$pid.'"/>
+			<input type="hidden" name="action" value="add"/>
+			<input type="submit" name="AddToCart" value="Add To Cart" id ="addtocart" class="btnAddAction" ></input>
 		</form>
 	</div>
 	<div id="outsidebox">
