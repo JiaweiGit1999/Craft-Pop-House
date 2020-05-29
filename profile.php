@@ -90,17 +90,17 @@ if ($result->num_rows > 0) {
 			<input type="button" name="button" value="Cancel" id="Cancel" onclick="DisplayProfileInfo()"></input>
 			<img id="image" src=' . $row["usericon"]. ' alt="testing" class="productimg" width="200" height="200">
 			<p><input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);"/></p>
-			<p class="Username">Username: <input type="text" name="editusername" value=' . $row["username"] . ' required></input></p>
+			<p class="profileform">Username: <input type="text" class="profileinputform" name="editusername" value=' . $row["username"] . ' required></input></p>
 			<p id="userpass">'.$oldpass.'</p>
-			<p class="oldpass">Old Password: <input type="text" name="editoldpass" id = "oldpass" required></input></p>
-			<p class="newpass">New Password: <input type="text" name="editnewpass" id = "newpass" required></input></p>
-			<p class="Email">Email: <input type="text" name="editemail" value=' . $row["email"] . ' requiredrequired></input></p>
-			<p class="Address">Address: <input type="text" name="editaddress" value=' . $row["address"] . ' required></input></p>
+			<p class="profileform">Old Password: <input type="text" class="profileinputform" name="editoldpass" id = "oldpass" required></input></p>
+			<p class="profileform">New Password: <input type="text" class="profileinputform" name="editnewpass" id = "newpass" required></input></p>
+			<p class="profileform">Email: <input type="text" class="profileinputform" name="editemail" value=' . $row["email"] . ' requiredrequired></input></p>
+			<p class="profileform">Address: <input type="text" class="profileinputform" name="editaddress" value=' . $row["address"] . ' required></input></p>
 		</form>
 	';
     }
 } else {
-    echo "0 results";
+    
 }
 		
 echo'
@@ -131,7 +131,7 @@ if ($result->num_rows > 0) {
 		
     }
 } else {
-    echo "0 results";
+    
 }
 $i = 0;
 while($i < count($productid)){
@@ -151,7 +151,7 @@ while($i < count($productid)){
 	
 		}
 	} else {
-		echo "0 results";
+		
 	}
 	$i++;
 }

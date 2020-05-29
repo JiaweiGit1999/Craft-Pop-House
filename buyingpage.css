@@ -469,6 +469,12 @@ form{
 #profileorderstable{
 	display:none;
 }
+.profileform{
+	width:35%;
+}
+.profileinputform{
+	float:right;
+}
 .checkout{
 	margin-top: 5%;
     margin-left: 4%;
