@@ -69,7 +69,9 @@ echo '
 		<input type="number" name="quantity" min="1"/>
 		<label for="name">Description: </label>
 		<textarea name="description" required></textarea>
-		<input type="submit" id="submit" name="Submit" value"Add"/>&nbsp;<input type="reset" name="Reset"/>
+		<div>
+			<input type="submit" id="submit" name="Submit" value"Add"/>&nbsp;<input type="reset" name="Reset"/>
+		</div>
 	</form>
 	</div>
 </body>
